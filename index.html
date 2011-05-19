@@ -8,19 +8,77 @@
       body { background-color: #dfdfff; margin: 0px; padding: 0px; }
       div.header { padding: 1px 3px; text-align: center; background-color: black; }
       div.header h1 { color: white; font: bold 25px Arial, sans-serif; }
-      div.view { display:none; }
+      div.view { margin: 0px; padding: 5px; }
+      div.input_row { margin: 0px 0px 5px 0px; }
+      div.label { 
+          font: 14px Arial, sans-serif;
+          float: left; width: 100px; 
+      }
+      div.button {
+          padding: 5px;
+          background-color: gray;
+          font: 14px Arial, sans-serif;
+          text-align: center;
+          cursor: pointer;
+      };
     </style>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('div#zacni_hru').click(clickZacniHru);
+          $('div.hraci_jmena').change(changeHraciJmena);
+          $('div.view').css('display', 'none');
+          initHraci();
+      });
+      var enabledZacniHru = false;
+      function initHraci() {
+          $('div#hraci').css('display', '');
+          $('div#zacni_hru').css('color', 'silver');
+          enabledZacniHru = false;
+      };
+      function changeHraciJmena(event) {
+          alert($('div.hraci_jmena').filter(
+              function(index) { alert(this.value); return this.value != ''; }).length);
+      };
+      function clickZacniHru(event) {
+          if (enabledZacniHru) {
+              $('div#hraci').css('display', 'none');
+              $('div#stolek').css('display', '');
+          };
+      };
+    </script>
 </head> 
 <body> 
   <div id="header" class="header">
     <h1>Prsi - karetni hra</h1>
   </div>
   <div id="hraci" class="view">
-    tady prijdou hraci
+    <div class="input_row">
+      <div class="label">Prvni hrac</div>
+      <div class="input"><input type="text" class="hraci_jmena" name="hrac-1" id="name-hrace-1"></div>
+    </div>
+    <div class="input_row">
+      <div class="label">Druhy hrac</div>
+      <div class="input"><input type="text" class="hraci_jmena" name="hrac-2" id="name-hrace-2"></div>
+    </div>
+    <div class="input_row">
+      <div class="label">Treti hrac</div>
+      <div class="input"><input type="text" class="hraci_jmena" name="hrac-3" id="name-hrace-3"></div>
+    </div>
+    <div class="input_row">
+      <div class="label">Ctvrty hrac</div>
+      <div class="input"><input type="text" class="hraci_jmena" name="hrac-4" id="name-hrace-4"></div>
+    </div>
+    <div class="input_row">
+      <div class="label">Paty hrac</div>
+      <div class="input"><input type="text" class="hraci_jmena" name="hrac-5" id="name-hrace-5"></div>
+    </div>
+    <div id="zacni_hru" class="button">Zacni hru</div>
   </div>
   <div id="stolek" class="view">
+    tady prijdou karty
   </div>
   <div id="predavka" class="view">
+    tady jen tma a velke tlacitko
   </div>
 </body>
 </html>
