@@ -25,7 +25,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
           $('div#zacni_hru').click(clickZacniHru);
-          $('div.hraci_jmena').change(changeHraciJmena);
+          $('input.hraci_jmena').change(changeHraciJmena);
           $('div.view').css('display', 'none');
           initHraci();
       });
@@ -36,8 +36,7 @@
           enabledZacniHru = false;
       };
       function changeHraciJmena(event) {
-          alert($('div.hraci_jmena').filter(
-              function(index) { alert(this.value); return this.value != ''; }).length);
+          alert('Hi!');
       };
       function clickZacniHru(event) {
           if (enabledZacniHru) {
