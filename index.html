@@ -15,7 +15,7 @@
           float: left; width: 100px; 
       }
       div.button {
-      	  clear: both;
+            clear: both;
           padding: 5px;
           background-color: gray;
           font: 14px Arial, sans-serif;
@@ -23,11 +23,22 @@
           cursor: pointer;
       }
       div.panel {
-      	  margin: 10px; padding: 10px; background-color: black;
-      	  font: bold 15px Arial, sans-serif; color: white;
+      	  margin: 10px; padding: 10px; 
+      	  font: bold 15px Arial, sans-serif; 
       	  text-align: center;
       }
+      div#predavka div.panel {
+      	  background-color: black; color: white;
+      }
       div#hrac_jmeno {
+      	  border: 1px solid white;
+      	  font: bold 40px Arial, sans-serif; color: white;
+      	  margin: 30px 10px 30px 10px; padding: 10px; 
+      }
+      div#vitez div.panel {
+      	  background-color: green; color: red;
+      }
+      div#hrac_vitez {
       	  border: 1px solid white;
       	  font: bold 40px Arial, sans-serif; color: white;
       	  margin: 30px 10px 30px 10px; padding: 10px; 
@@ -35,13 +46,40 @@
       div.panel div.button {
       	  margin-top: 40px;
       }
-      div.karta {
+      div.title {
+        
+      }
+      div.karta_box {
       	  float: left;
-      	  width: 70px; height: 55px; border: red solid 1px;
-      	  margin: 2px; background-color: navy; color: white;
+      	  width: 70px; 
+      	  margin: 2px; 
+      }
+      div.karta {
+      	  width: 100%; height: 70px; 
+      	  border: red solid 1px;
+      	  margin-bottom: 3px;
+      	  background-color: navy; color: white;
       	  font: bold 16px Arial, sans-serif;
       	  text-align: center;
-      	  padding-top: 27px;  // vertical middle
+      	  vertical-align: middle; 
+      }
+      div.rub-karta {
+      	  width: 100%; height: 70px; 
+      	  border: black solid 1px;
+      	  margin-bottom: 3px; 
+      	  background-color: silver; color: black;
+      	  font: bold 25px Arial, sans-serif;
+      	  text-align: center;
+      	  vertical-align: middle; 
+      }
+      div.title {
+        clear:both;
+     	  margin: 0px; padding: 5px; background-color: blue;
+      	font: bold 12px Arial, sans-serif; color: white;
+      	text-align: center;
+      }
+      div.zmacknuto {
+        font-weight: bold; color:white;
       }
     </style>
     <script type="text/javascript">
@@ -49,6 +87,7 @@
           $('div#zacni_hru').click(clickZacniHru);
           $('div#jdi_na_tah').click(clickJdiNaTah);
           $('div#tah_hotovy').click(clickTahHotovy);
+          $('div#nova_hra').click(clickNovaHra);
           $('input.hraci_jmena').change(changeHraciJmena);
           $('div.view').css('display', 'none');
           $('div.panel').height(300);
@@ -67,7 +106,7 @@
       	  enabledZacniHru = (vyplneniHraci.length >= 2);
           $('div#zacni_hru').css('color', (enabledZacniHru?'black':'silver'));
       };
-      var hra = { hraci: [], karty: [] };
+      var hra = {};
       function clickZacniHru(event) {
           if (!enabledZacniHru) {
             alert('Jsou potreba aspon dva hraci');
@@ -85,50 +124,194 @@
       var hodnoty = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
       var barvy = ['srdce', 'kary', 'zelena', 'zaludy'];
       function pripravHru() {
+        hra = { hraci: [], karty: [], nastole: [], lizani: 0, cekani: false, historie: [] };
       	 var hr_index = 0;
          $('input.hraci_jmena').map(function(index, el) {
          		 if (el.value) {
-          		 	 hra.hraci[hr_index++] = { name: el.value, vruce: [] };
+          		 	 hra.hraci[hr_index++] = { 
+          		 	   name: el.value, 
+          		 	   vruce: [] 
+          		 	 };
          		 };
          });
          var kr_index = 0;
+         var karty = [];
          for(var hd_ix in hodnoty) {
            for(var br_ix in barvy) {
-             kr_index++;
-             hra.karty[kr_index] = barvy[br_ix]+'-'+hodnoty[hd_ix];
+             karty[kr_index++] = { 
+               id: barvy[br_ix]+'-'+hodnoty[hd_ix],
+               barva: br_ix, hodnota: hd_ix
+             };
            }
          };
          // zamichat karty
-         kr_index = 0;
+         while (karty.length > 0) {
+           var rnd_ix = Math.floor(Math.random()*karty.length)
+           hra.karty.push(karty.splice(rnd_ix, 1)[0]);
+         };
+         kr_trideni = 0;
          for(var ix in [1,2,3,4]) {
            for(var hr_ix in hra.hraci) {
-             kr_index++;
              var hrac = hra.hraci[hr_ix];
-             hrac.vruce.push(kr_index);
+             hrac.vruce.push(kr_trideni++);
            }
          };
-         hra.aktualni = 1;
+         while(kr_trideni<hra.karty.length)
+           hra.nastole.push(kr_trideni++);
+         hra.aktualni = 0;
       };
-      function clickJdiNaTah() {
+      function pridejKartu(el, kr_ix, btn) {
+        var html = '<div class="karta_box">';
+        if (typeof(kr_ix) == 'number') {
+          var karta = hra.karty[kr_ix];
+          html += '<div class="karta">'+hodnoty[karta.hodnota]+' '+barvy[karta.barva]+'</div>';
+          var label = 'Vyhod';
+          var dt_karta = kr_ix; 
+        }
+        else {
+          html += '<div class="rub-karta">'+kr_ix+'</div>';
+          var label = 'Lizni ' + btn;
+          var dt_karta = -btn;
+        }
+        if (btn > 0) html += '<div data-karta="'+dt_karta+'" id="button-podkartou-'+kr_ix+'" class="podkartou button">'+label+'</div>';
+        html += '</div>';
+        el.append(html);
+      }
+      function vezmiKartu() {
+        $('div.podkartou').removeClass('zmacknuto');
+        $(this).addClass('zmacknuto');
+        hra.volba = parseInt(this.attributes['data-karta'].value);
+      };
+      function povolenaKarta(karta) {
+        var karta_barva = hra.karty[karta].barva;
+        var nastole_barva = hra.karty[hra.nastole[0]].barva;
+        var karta_hodnota = hra.karty[karta].hodnota;
+        var nastole_hodnota = hra.karty[hra.nastole[0]].hodnota;
+             
+        var povoleno = false;
+        if (hra.lizani > 0 && hodnoty[nastole_hodnota] == '7') {
+          povoleno = (karta_hodnota == nastole_hodnota)
+        }
+        else 
+        if (hra.cekani && hodnoty[nastole_hodnota] == 'A') {
+          povoleno = (karta_hodnota == nastole_hodnota)
+        }
+        else {
+          povoleno = (karta_barva == nastole_barva || karta_hodnota == nastole_hodnota);
+        };
+        return (povoleno? 1 : 0);
+      }
+      function povoleneLizani(karta) {
+        var nastole_hodnota = hra.karty[hra.nastole[0]].hodnota;
+             
+        var povoleno = 1;
+        if (hra.lizani > 0 && hodnoty[nastole_hodnota] == '7') {
+          povoleno = hra.lizani;
+        }
+        else if (hra.cekani && hodnoty[nastole_hodnota] == 'A') {
+          povoleno = 0;
+        };
+        return povoleno;
+      }
+      function displayStolek() {
          $('div#predavka').css('display', 'none');
+         
+         $('div#section_hrac').text('Na tahu je hrac ' + hra.hraci[hra.aktualni].name + '.');
+         
          var vruce = $('div#vruce');
          vruce.empty();
          for(var kr_ix in hra.hraci[hra.aktualni].vruce) {
-            var karta_pool = $('#karta-'+hra.karty[hra.hraci[hra.aktualni].vruce[kr_ix]]);
-            var karta_new = karta_pool.clone();
-            karta_new.id = karta_pool.id + '-vruce';
-            vruce.append(karta_new);
+           var karta = hra.hraci[hra.aktualni].vruce[kr_ix];
+           pridejKartu(vruce, karta, povolenaKarta(karta));
          };
+         
+         var nastole = $('div#nastole');
+         nastole.empty();
+         pridejKartu(nastole, hra.nastole[0], false);
+         pridejKartu(nastole, hra.nastole.length-1 + ' karet', povoleneLizani(karta));
+         
+         $('div.podkartou').click(vezmiKartu);
+         
+         var historie = $('div#historie');
+         historie.empty();
+         for(var hr_ix in hra.historie) {
+           if (hr_ix < hra.hraci.length) {
+             historie.append('<p>'+hra.historie[hr_ix]+'</p>');
+           }
+         };
+         
+         hra.volba = null;
+         
          $('div#stolek').css('display', '');
+      }
+      function dalsiTah() {
+        if (hra.volba==null) {
+          hra.historie.unshift('Hrac '+hra.hraci[hra.aktualni].name+' vynechal jedno kolo');
+        }
+        else {
+          if (hra.volba < 0) { // liznout ze stolu
+            var karty = -hra.volba;
+            hra.historie.unshift('Hrac '+hra.hraci[hra.aktualni].name+' si liznul '+karty+'krat');
+            while (karty > 0) {
+              hra.hraci[hra.aktualni].vruce.push(hra.nastole.pop());
+              karty--;
+            };
+            hra.lizani = 0;
+          }
+          else {               // vyhodit zvolenou kartu
+            var idx = hra.hraci[hra.aktualni].vruce.indexOf(hra.volba);
+            if (idx != -1) { 
+              hra.hraci[hra.aktualni].vruce.splice(idx, 1);
+              hra.nastole.unshift(hra.volba);
+              if (hodnoty[hra.karty[hra.volba].hodnota]=='7') {
+                hra.lizani += 2;
+              };
+              if (hodnoty[hra.karty[hra.volba].hodnota]=='A') {
+                hra.cekani = true;
+              };
+              hra.historie.unshift(
+                    'Hrac ' + hra.hraci[hra.aktualni].name 
+                    + ' vyhodil ' + barvy[hra.karty[hra.volba].barva] 
+                    + ' ' + hodnoty[hra.karty[hra.volba].hodnota]);
+              
+            };
+          };
+        };
+      }
+      function clickJdiNaTah() {
+        displayStolek();
+      };
+      function displayVitez() {
+        $('div#hrac_vitez').text(hra.hraci[hra.aktualni].name);
+        $('div#vitez').css('display', '');
+      };
+      function clickNovaHra () {
+        $('div#vitez').css('display', 'none');
+        initHraci();
       };
       function clickTahHotovy() {
-         $('div#stolek').css('display', 'none');
-         dalsiHrac();
-         displayPredavka();
+        if (hra.volba==null) {
+          if (hra.cekani) {
+            hra.cekani = false; // cekame na esu, nedelame nic...
+          }
+          else {
+            alert('Jeste si se nerozhodl, jaky bude dalsi tah!');
+            return;
+          };
+        };
+        $('div#stolek').css('display', 'none');
+        dalsiTah();
+        if (hra.hraci[hra.aktualni].vruce.length==0) {
+          displayVitez();
+        }
+        else {
+          dalsiHrac();
+          displayPredavka();
+        };
       };
       function dalsiHrac() {
       	 hra.aktualni++;
-      	 if (!hra.hraci[hra.aktualni]) hra.aktualni = 1;
+      	 if (!hra.hraci[hra.aktualni]) hra.aktualni = 0;
       };
     </script>
 </head> 
@@ -160,7 +343,19 @@
     <div id="zacni_hru" class="button">Zacni hru</div>
   </div>
   <div id="stolek" class="view">
-    <div id="vruce"></div>
+    <div id="section_hrac"></div>
+    <div id="section_nastole">
+      <div class="title">Karty na stole</div>
+      <div id="nastole"></div>
+    </div>
+    <div id="section_vruce">
+      <div class="title">Karty co mas v ruce</div>
+      <div id="vruce"></div>
+    </div>
+    <div id="section_historie">
+      <div class="title">Predesle tahy</div>
+      <div id="historie"></div>
+    </div>
     <div class="button" id="tah_hotovy">Hotovo! Dalsi hrac</div>
   </div>
   <div id="predavka" class="view">
@@ -171,39 +366,13 @@
       <div class="button" id="jdi_na_tah">Pripraven na hru</div>
     </div>
   </div>
-  <div id="karty" style="display:none;">
-    <div class="karta" id="karta-srdce-7">7 srdce</div>
-    <div class="karta" id="karta-srdce-8">8 srdce</div>
-    <div class="karta" id="karta-srdce-9">9 srdce</div>
-    <div class="karta" id="karta-srdce-10">10 srdce</div>
-    <div class="karta" id="karta-srdce-J">J srdce</div>
-    <div class="karta" id="karta-srdce-Q">Q srdce</div>
-    <div class="karta" id="karta-srdce-K">K srdce</div>
-    <div class="karta" id="karta-srdce-A">A srdce</div>
-    <div class="karta" id="karta-kary-7">7 kary</div>
-    <div class="karta" id="karta-kary-8">8 kary</div>
-    <div class="karta" id="karta-kary-9">9 kary</div>
-    <div class="karta" id="karta-kary-10">10 kary</div>
-    <div class="karta" id="karta-kary-J">J kary</div>
-    <div class="karta" id="karta-kary-Q">Q kary</div>
-    <div class="karta" id="karta-kary-K">K kary</div>
-    <div class="karta" id="karta-kary-A">A kary</div>
-    <div class="karta" id="karta-zelena-7">7 zelena</div>
-    <div class="karta" id="karta-zelena-8">8 zelena</div>
-    <div class="karta" id="karta-zelena-9">9 zelena</div>
-    <div class="karta" id="karta-zelena-10">10 zelena</div>
-    <div class="karta" id="karta-zelena-J">J zelena</div>
-    <div class="karta" id="karta-zelena-Q">Q zelena</div>
-    <div class="karta" id="karta-zelena-K">K zelena</div>
-    <div class="karta" id="karta-zelena-A">A zelena</div>
-    <div class="karta" id="karta-zaludy-7">7 zaludy</div>
-    <div class="karta" id="karta-zaludy-8">8 zaludy</div>
-    <div class="karta" id="karta-zaludy-9">9 zaludy</div>
-    <div class="karta" id="karta-zaludy-10">10 zaludy</div>
-    <div class="karta" id="karta-zaludy-J">J zaludy</div>
-    <div class="karta" id="karta-zaludy-Q">Q zaludy</div>
-    <div class="karta" id="karta-zaludy-K">K zaludy</div>
-    <div class="karta" id="karta-zaludy-A">A zaludy</div>
+  <div id="vitez" class="view">
+    <div class="panel">
+      Tradaaaa! Vitezem se stava
+      <div id="hrac_vitez"></div>
+      Trosku to oslavte a pustte se do odvety
+      <div class="button" id="nova_hra">Nova hra</div>
+    </div>
   </div>
 </body>
 </html>
