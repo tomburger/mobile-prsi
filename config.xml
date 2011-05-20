@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns    	= "http://www.w3.org/ns/widgets"
-	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		= "cz.burger.phonegap.prsi.mobile"
-	version 	= "0.0.1">
+<widget xmlns = "http://www.w3.org/ns/widgets"
+	xmlns:gap = "http://phonegap.com/ns/1.0"
+	id		  = "cz.burger.phonegap.prsi.mobile"
+    viewmode  = "maximized"
+	version   = "0.0.1">
 
 	<name>Karetni hra Prsi</name>
 
