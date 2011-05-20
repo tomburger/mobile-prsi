@@ -5,7 +5,7 @@
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
     <style>
-      body { background-color: #dfdfff; margin: 0px; padding: 0px; }
+      body { height: 100%; background-color: #dfdfff; margin: 0px; padding: 0px; }
       div.header { padding: 1px 3px; text-align: center; background-color: black; }
       div.header h1 { color: white; font: bold 25px Arial, sans-serif; }
       div.view { margin: 0px; padding: 5px; }
@@ -15,34 +15,121 @@
           float: left; width: 100px; 
       }
       div.button {
+      	  clear: both;
           padding: 5px;
           background-color: gray;
           font: 14px Arial, sans-serif;
           text-align: center;
           cursor: pointer;
-      };
+      }
+      div.panel {
+      	  margin: 10px; padding: 10px; background-color: black;
+      	  font: bold 15px Arial, sans-serif; color: white;
+      	  text-align: center;
+      }
+      div#hrac_jmeno {
+      	  border: 1px solid white;
+      	  font: bold 40px Arial, sans-serif; color: white;
+      	  margin: 30px 10px 30px 10px; padding: 10px; 
+      }
+      div.panel div.button {
+      	  margin-top: 40px;
+      }
+      div.karta {
+      	  float: left;
+      	  width: 70px; height: 55px; border: red solid 1px;
+      	  margin: 2px; background-color: navy; color: white;
+      	  font: bold 16px Arial, sans-serif;
+      	  text-align: center;
+      	  padding-top: 27px;  // vertical middle
+      }
     </style>
     <script type="text/javascript">
       $(document).ready(function() {
           $('div#zacni_hru').click(clickZacniHru);
+          $('div#jdi_na_tah').click(clickJdiNaTah);
+          $('div#tah_hotovy').click(clickTahHotovy);
           $('input.hraci_jmena').change(changeHraciJmena);
           $('div.view').css('display', 'none');
+          $('div.panel').height(300);
           initHraci();
       });
       var enabledZacniHru = false;
       function initHraci() {
           $('div#hraci').css('display', '');
           $('div#zacni_hru').css('color', 'silver');
-          enabledZacniHru = false;
+          changeHraciJmena(null);
       };
       function changeHraciJmena(event) {
-          alert('Hi!');
+      	  var vyplneniHraci = $('input.hraci_jmena').filter(
+      	  	  function(index) { return this.value; }
+      	  	  );
+      	  enabledZacniHru = (vyplneniHraci.length >= 2);
+          $('div#zacni_hru').css('color', (enabledZacniHru?'black':'silver'));
       };
+      var hra = { hraci: [], karty: [] };
       function clickZacniHru(event) {
-          if (enabledZacniHru) {
+          if (!enabledZacniHru) {
+            alert('Jsou potreba aspon dva hraci');
+          }
+          else {
               $('div#hraci').css('display', 'none');
-              $('div#stolek').css('display', '');
+              pripravHru();
+              displayPredavka();
           };
+      };
+      function displayPredavka() {
+          $('div#hrac_jmeno').text(hra.hraci[hra.aktualni].name);
+          $('div#predavka').css('display', '');
+      };
+      var hodnoty = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+      var barvy = ['srdce', 'kary', 'zelena', 'zaludy'];
+      function pripravHru() {
+      	 var hr_index = 0;
+         $('input.hraci_jmena').map(function(index, el) {
+         		 if (el.value) {
+         		 	 hr_index++;
+         		 	 hra.hraci[hr_index] = { name: el.value, vruce: [] };
+         		 };
+         });
+         var kr_index = 0;
+         for(var hd_ix in hodnoty) {
+           for(var br_ix in barvy) {
+             kr_index++;
+             hra.karty[kr_index] = barvy[br_ix]+'-'+hodnoty[hd_ix];
+           }
+         };
+         // zamichat karty
+         kr_index = 0;
+         for(var ix in [1,2,3,4]) {
+           for(var hr_ix in hra.hraci) {
+             kr_index++;
+             var hrac = hra.hraci[hr_ix];
+             hrac.vruce.push(kr_index);
+           }
+         };
+         hra.aktualni = 1;
+      };
+      function clickJdiNaTah() {
+         $('div#predavka').css('display', 'none');
+         var vruce = $('div#vruce');
+         vruce.empty();
+         for(var kr_ix in hra.hraci[hra.aktualni].vruce) {
+            var karta_pool = $('#karta-'+hra.karty[hra.hraci[hra.aktualni].vruce[kr_ix]]);
+            var karta_new = karta_pool.clone();
+            karta_new.id = karta_pool.id + '-vruce';
+            vruce.append(karta_new);
+         };
+         $('div#stolek').css('display', '');
+      };
+      function clickTahHotovy() {
+         $('div#stolek').css('display', 'none');
+         dalsiHrac();
+         displayPredavka();
+      };
+      function dalsiHrac() {
+      	 hra.aktualni++;
+      	 if (!hra.hraci[hra.aktualni]) hra.aktualni = 1;
       };
     </script>
 </head> 
@@ -74,10 +161,50 @@
     <div id="zacni_hru" class="button">Zacni hru</div>
   </div>
   <div id="stolek" class="view">
-    tady prijdou karty
+    <div id="vruce"></div>
+    <div class="button" id="tah_hotovy">Hotovo! Dalsi hrac</div>
   </div>
   <div id="predavka" class="view">
-    tady jen tma a velke tlacitko
+    <div class="panel">
+      Na rade je
+      <div id="hrac_jmeno"></div>
+      Az budes pripraveny, klikni na tlacitko...
+      <div class="button" id="jdi_na_tah">Pripraven na hru</div>
+    </div>
+  </div>
+  <div id="karty" style="display:none;">
+    <div class="karta" id="karta-srdce-7">7 srdce</div>
+    <div class="karta" id="karta-srdce-8">8 srdce</div>
+    <div class="karta" id="karta-srdce-9">9 srdce</div>
+    <div class="karta" id="karta-srdce-10">10 srdce</div>
+    <div class="karta" id="karta-srdce-J">J srdce</div>
+    <div class="karta" id="karta-srdce-Q">Q srdce</div>
+    <div class="karta" id="karta-srdce-K">K srdce</div>
+    <div class="karta" id="karta-srdce-A">A srdce</div>
+    <div class="karta" id="karta-kary-7">7 kary</div>
+    <div class="karta" id="karta-kary-8">8 kary</div>
+    <div class="karta" id="karta-kary-9">9 kary</div>
+    <div class="karta" id="karta-kary-10">10 kary</div>
+    <div class="karta" id="karta-kary-J">J kary</div>
+    <div class="karta" id="karta-kary-Q">Q kary</div>
+    <div class="karta" id="karta-kary-K">K kary</div>
+    <div class="karta" id="karta-kary-A">A kary</div>
+    <div class="karta" id="karta-zelena-7">7 zelena</div>
+    <div class="karta" id="karta-zelena-8">8 zelena</div>
+    <div class="karta" id="karta-zelena-9">9 zelena</div>
+    <div class="karta" id="karta-zelena-10">10 zelena</div>
+    <div class="karta" id="karta-zelena-J">J zelena</div>
+    <div class="karta" id="karta-zelena-Q">Q zelena</div>
+    <div class="karta" id="karta-zelena-K">K zelena</div>
+    <div class="karta" id="karta-zelena-A">A zelena</div>
+    <div class="karta" id="karta-zaludy-7">7 zaludy</div>
+    <div class="karta" id="karta-zaludy-8">8 zaludy</div>
+    <div class="karta" id="karta-zaludy-9">9 zaludy</div>
+    <div class="karta" id="karta-zaludy-10">10 zaludy</div>
+    <div class="karta" id="karta-zaludy-J">J zaludy</div>
+    <div class="karta" id="karta-zaludy-Q">Q zaludy</div>
+    <div class="karta" id="karta-zaludy-K">K zaludy</div>
+    <div class="karta" id="karta-zaludy-A">A zaludy</div>
   </div>
 </body>
 </html>
