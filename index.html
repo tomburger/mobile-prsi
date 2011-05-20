@@ -88,8 +88,7 @@
       	 var hr_index = 0;
          $('input.hraci_jmena').map(function(index, el) {
          		 if (el.value) {
-         		 	 hr_index++;
-         		 	 hra.hraci[hr_index] = { name: el.value, vruce: [] };
+          		 	 hra.hraci[hr_index++] = { name: el.value, vruce: [] };
          		 };
          });
          var kr_index = 0;
