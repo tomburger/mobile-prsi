@@ -6,21 +6,38 @@
     <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
     <style>
       body { height: 100%; background-color: #dfdfff; margin: 0px; padding: 0px; }
-      div.header { padding: 1px 3px; text-align: center; background-color: black; }
-      div.header h1 { color: white; font: bold 25px Arial, sans-serif; }
-      div.view { margin: 0px; padding: 5px; }
-      div.input_row { margin: 0px 0px 5px 0px; }
+      div.header { padding: 5px; text-align: left; background-color: black; }
+      div.header h1 { margin: 0px; color: white; font: bold 1em Arial, sans-serif; }
+      div.view { margin: 0px; padding: 5px 0px; }
+      div.input_row { 
+          clear: both; height: 35px;
+          margin: 0px 0px 5px 0px; }
+      div.input { padding: 0px; float: left; }
+      input.hraci_jmena { 
+          padding: 5px; margin: 3px;
+          border: 1px solid orange; border-radius: 5px;}
       div.label { 
+          padding: 10px 5px;
           font: 14px Arial, sans-serif;
-          float: left; width: 100px; 
+          float: left; width: 100px;
+          text-align: right;
       }
       div.button {
           clear: both;
           padding: 5px;
-          background-color: gray;
-          font: 14px Arial, sans-serif;
+          margin: 0px 5px;
+          border: 1px solid black;
+          border-radius: 5px;
+          background-color: #4f4f4f;
+          font: 20px Arial, sans-serif;
           text-align: center;
+          text-shadow: 1px 1px 2px black;
           cursor: pointer;
+          color: white;
+          font-weight: bold;
+      }
+      div.disabled {
+          color: gray;
       }
       div.panel {
       	  margin: 10px; padding: 10px; 
@@ -32,6 +49,7 @@
       }
       div#hrac_jmeno {
       	  border: 1px solid white;
+      	  border-radius: 10px;
       	  font: bold 40px Arial, sans-serif; color: white;
       	  margin: 30px 10px 30px 10px; padding: 10px; 
       }
@@ -47,24 +65,53 @@
       	  margin-top: 40px;
       }
       div.title {
-        
       }
       div.karta_box {
       	  float: left;
       	  width: 70px; 
       	  margin: 2px; 
+      	  border: #dfdfff 1px solid;
+      }
+      div.klikaci {
+      	  cursor: pointer;
+      }
+      div.maznuta {
+        opacity: .3;
+      }
+      div.vyrazna {
+        border: white 1px solid;
       }
       div.karta {
-      	  width: 100%; height: 70px; 
-      	  border: red solid 1px;
+      	  width: 68px; height: 68px; 
+      	  border: black solid 1px;
+      	  border-radius: 2px;
       	  margin-bottom: 3px;
-      	  background-color: navy; color: white;
-      	  font: bold 16px Arial, sans-serif;
+      	  font: bold 50px Arial, sans-serif;
       	  text-align: center;
       	  vertical-align: middle; 
       }
+      div.srdce  {
+        color: black;
+        text-shadow: 1px 1px 2px white;
+        background: url('srdce.png') no-repeat; 
+      }
+      div.kary   { 
+        color: black;
+        text-shadow: 1px 1px 2px white;
+        background: url('kary.png') no-repeat; 
+      }
+      div.zelena {
+        color: #c0905f;
+        text-shadow: 1px 1px 2px white;
+        background: url('zelena.png') no-repeat; 
+      }
+      div.zaludy { 
+        color: #c0905f;
+        text-shadow: 1px 1px 2px white;
+        background: url('zaludy.png') no-repeat; 
+      }
       div.rub-karta {
-      	  width: 100%; height: 70px; 
+      	  width: 68px; height: 68px; 
       	  border: black solid 1px;
       	  margin-bottom: 3px; 
       	  background-color: silver; color: black;
@@ -72,14 +119,39 @@
       	  text-align: center;
       	  vertical-align: middle; 
       }
+      div.podkartou {
+          width: 68px;
+          background-color: #7fff59; color: #7fff59;
+          border: 1px solid white;
+          height: 5px; border-radius: 2px;
+          font-size: 1px;
+      }
       div.title {
         clear:both;
      	  margin: 0px; padding: 5px; background-color: blue;
       	font: bold 12px Arial, sans-serif; color: white;
       	text-align: center;
       }
-      div.zmacknuto {
-        font-weight: bold; color:white;
+      div#section_hrac {
+        margin: 5px; 
+        background-color: #c0d0c0;
+      	font: bold 20px Arial, sans-serif; color: black;
+      	padding: 5px;
+      }
+      div.hrac_historie {
+        clear: both; margin: 5px;
+        height: 80px;
+        background-color: #c0d0c0;
+      }
+      div.hrac_jmeno {
+      	font: bold 20px Arial, sans-serif; color: black;
+      	padding: 5px; 
+        float: left; width: 150px;
+      }
+      div.hrac_zprava {
+      	font: bold 20px Arial, sans-serif; color: black;
+      	padding: 5px; 
+        float: left;
       }
     </style>
     <script type="text/javascript">
@@ -96,7 +168,6 @@
       var enabledZacniHru = false;
       function initHraci() {
           $('div#hraci').css('display', '');
-          $('div#zacni_hru').css('color', 'silver');
           changeHraciJmena(null);
       };
       function changeHraciJmena(event) {
@@ -104,7 +175,10 @@
       	  	  function(index) { return this.value; }
       	  	  );
       	  enabledZacniHru = (vyplneniHraci.length >= 2);
-          $('div#zacni_hru').css('color', (enabledZacniHru?'black':'silver'));
+      	  if (enabledZacniHru) 
+            $('div#zacni_hru').removeClass('disabled')
+          else
+            $('div#zacni_hru').addClass('disabled');
       };
       var hra = {};
       function clickZacniHru(event) {
@@ -161,26 +235,44 @@
          hra.aktualni = 0;
       };
       function pridejKartu(el, kr_ix, btn) {
-        var html = '<div class="karta_box">';
         if (typeof(kr_ix) == 'number') {
           var karta = hra.karty[kr_ix];
-          html += '<div class="karta">'+hodnoty[karta.hodnota]+' '+barvy[karta.barva]+'</div>';
-          var label = 'Vyhod';
+          var barva = barvy[karta.barva] 
+          var kr_html = '<div class="karta '
+                      + barva + '">'
+                      + hodnoty[karta.hodnota]
+                      + '</div>';
           var dt_karta = kr_ix; 
         }
         else {
-          html += '<div class="rub-karta">'+kr_ix+'</div>';
-          var label = 'Lizni ' + btn;
+          var kr_html = '<div class="rub-karta">'+kr_ix+'</div>';
           var dt_karta = -btn;
         }
-        if (btn > 0) html += '<div data-karta="'+dt_karta+'" id="button-podkartou-'+kr_ix+'" class="podkartou button">'+label+'</div>';
+        var html = '<div data-karta="'+dt_karta+'" class="karta_box'
+                 + (btn > 0 ? ' klikaci': '') + '">';
+        html += kr_html;
+        if (btn > 0) html += '<div id="button-podkartou-'+kr_ix+'" class="podkartou">.</div>';
         html += '</div>';
         el.append(html);
       }
       function vezmiKartu() {
-        $('div.podkartou').removeClass('zmacknuto');
-        $(this).addClass('zmacknuto');
-        hra.volba = parseInt(this.attributes['data-karta'].value);
+        if ($(this).hasClass('vyrazna')) {
+          $('div.karta_box')
+            .removeClass('vyrazna')
+            .removeClass('maznuta');
+          hra.volba = null;
+          if (!hra.cekani) $('div#tah_hotovy').addClass('disabled');
+        }
+        else {
+          $('div.karta_box')
+            .removeClass('vyrazna')
+            .addClass('maznuta');
+          $(this)
+            .removeClass('maznuta')
+            .addClass('vyrazna');
+          hra.volba = parseInt(this.attributes['data-karta'].value);
+          $('div#tah_hotovy').removeClass('disabled');
+        };
       };
       function povolenaKarta(karta) {
         var karta_barva = hra.karty[karta].barva;
@@ -228,30 +320,57 @@
          var nastole = $('div#nastole');
          nastole.empty();
          pridejKartu(nastole, hra.nastole[0], false);
-         pridejKartu(nastole, hra.nastole.length-1 + ' karet', povoleneLizani(karta));
+         pridejKartu(nastole, hra.nastole.length-1 + ' karet', false);
          
-         $('div.podkartou').click(vezmiKartu);
+         var lizani = povoleneLizani(karta);
+         if (lizani > 0) pridejKartu(nastole, 'Lizni ' + lizani, lizani);
+         
+         $('div.klikaci').click(vezmiKartu);
          
          var historie = $('div#historie');
          historie.empty();
-         for(var hr_ix in hra.historie) {
-           if (hr_ix < hra.hraci.length) {
-             historie.append('<p>'+hra.historie[hr_ix]+'</p>');
+         for(var hr_ix in hra.hraci) {
+           if (hr_ix != hra.aktualni) {
+             historie.append('<div id="hrac-historie-'+hr_ix+'" class="hrac_historie"></div>');
+             var hr_hist = $('div#hrac-historie-'+hr_ix);
+             hr_hist.append('<div class="hrac_jmeno">' + hra.hraci[hr_ix].name + '</name>'); 
+             pridejKartu(hr_hist, 
+               hra.hraci[hr_ix].vruce.length + ' karet', false);
+             if (hra.hraci[hr_ix].tah) {
+               if (hra.hraci[hr_ix].tah.karta >= 0) {
+                 pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, false);
+               }
+               else 
+               if (hra.hraci[hr_ix].tah.lizal > 0) {
+                 hr_hist.append('<div class="hrac_zprava">' + hra.hraci[hr_ix].tah.lizal + 'krat<br/>liznul</div>');
+               }
+               else {
+                 hr_hist.append('<div class="hrac_zprava">Vynechal</div>');
+               }
+             }
+             else {
+               hr_hist.append('<div class="hrac_zprava">Jeste<br/>nehral</div>');
+             }
            }
          };
          
          hra.volba = null;
+         if (!hra.cekani) $('div#tah_hotovy').addClass('disabled');
          
          $('div#stolek').css('display', '');
       }
+      function zapisHistorii(lizal, karta) {
+        hra.hraci[hra.aktualni].tah = {'lizal': lizal, 'karta': karta};
+        hra.historie.unshift({'hrac': hra.aktualni, 'lizal': lizal, 'karta': karta});
+      }
       function dalsiTah() {
         if (hra.volba==null) {
-          hra.historie.unshift('Hrac '+hra.hraci[hra.aktualni].name+' vynechal jedno kolo');
+          zapisHistorii(0, -1);
         }
         else {
           if (hra.volba < 0) { // liznout ze stolu
             var karty = -hra.volba;
-            hra.historie.unshift('Hrac '+hra.hraci[hra.aktualni].name+' si liznul '+karty+'krat');
+            zapisHistorii(karty, -1);
             while (karty > 0) {
               hra.hraci[hra.aktualni].vruce.push(hra.nastole.pop());
               karty--;
@@ -269,11 +388,7 @@
               if (hodnoty[hra.karty[hra.volba].hodnota]=='A') {
                 hra.cekani = true;
               };
-              hra.historie.unshift(
-                    'Hrac ' + hra.hraci[hra.aktualni].name 
-                    + ' vyhodil ' + barvy[hra.karty[hra.volba].barva] 
-                    + ' ' + hodnoty[hra.karty[hra.volba].hodnota]);
-              
+              zapisHistorii(0, hra.volba);
             };
           };
         };
@@ -321,23 +436,23 @@
   </div>
   <div id="hraci" class="view">
     <div class="input_row">
-      <div class="label">Prvni hrac</div>
+      <div class="label"><label for="name-hrace-1">Prvni hrac</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-1" id="name-hrace-1"></div>
     </div>
     <div class="input_row">
-      <div class="label">Druhy hrac</div>
+      <div class="label"><label for="name-hrace-2">Druhy hrac</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-2" id="name-hrace-2"></div>
     </div>
     <div class="input_row">
-      <div class="label">Treti hrac</div>
+      <div class="label"><label for="name-hrace-3">Treti hrac</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-3" id="name-hrace-3"></div>
     </div>
     <div class="input_row">
-      <div class="label">Ctvrty hrac</div>
+      <div class="label"><label for="name-hrace-4">Ctvrty hrac</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-4" id="name-hrace-4"></div>
     </div>
     <div class="input_row">
-      <div class="label">Paty hrac</div>
+      <div class="label"><label for="name-hrace-5">Paty hrac</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-5" id="name-hrace-5"></div>
     </div>
     <div id="zacni_hru" class="button">Zacni hru</div>
@@ -353,7 +468,7 @@
       <div id="vruce"></div>
     </div>
     <div id="section_historie">
-      <div class="title">Predesle tahy</div>
+      <div class="title">Ostatni hraci</div>
       <div id="historie"></div>
     </div>
     <div class="button" id="tah_hotovy">Hotovo! Dalsi hrac</div>
