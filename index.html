@@ -63,7 +63,7 @@
       	  margin: 30px 10px 30px 10px; padding: 10px; 
       }
       div.panel div.button {
-      	  margin-top: 40px;
+      	  margin-top: 40px; 
       }
       div.title {
       }
@@ -71,8 +71,8 @@
       	  float: left;
       	  width: 70px; 
       	  margin: 2px; 
-      	  border: #dfdfff 1px solid;
       }
+      div.mazaci { border: #dfdfff 1px solid; }
       div.klikaci {
       	  cursor: pointer;
       }
@@ -83,36 +83,38 @@
         border: white 1px solid;
       }
       div.karta {
-      	  width: 68px; height: 68px; 
+      	  width: 68px; height: 75px; 
       	  border: black solid 1px;
       	  border-radius: 2px;
       	  margin-bottom: 3px;
+      	  padding-top: 15px;
       	  font: bold 50px Arial, sans-serif;
       	  text-align: center;
-      	  vertical-align: middle; 
+      	  vertical-align: middle;
       }
+      div.shadow { box-shadow: 3px 3px 2px #ccc; }
       div.srdce  {
         color: black;
         text-shadow: 1px 1px 2px white;
-        background: url('srdce.png') no-repeat; 
+        background: white url('srdce.png') no-repeat 2px 2px; 
       }
       div.kary   { 
         color: black;
         text-shadow: 1px 1px 2px white;
-        background: url('kary.png') no-repeat; 
+        background: white url('kary.png') no-repeat 2px 2px; 
       }
       div.zelena {
         color: #c0905f;
         text-shadow: 1px 1px 2px white;
-        background: url('zelena.png') no-repeat; 
+        background: white url('zelena.png') no-repeat 2px 2px; 
       }
       div.zaludy { 
         color: #c0905f;
         text-shadow: 1px 1px 2px white;
-        background: url('zaludy.png') no-repeat; 
+        background: white url('zaludy.png') no-repeat 2px 2px; 
       }
       div.rub-karta {
-      	  width: 68px; height: 68px; 
+      	  width: 68px; height: 90px; 
       	  border: black solid 1px;
       	  margin-bottom: 3px; 
       	  background-color: silver; color: black;
@@ -128,6 +130,7 @@
       div.podkartou {
           width: 68px;
           background-color: #7fff59; color: #7fff59;
+      	  box-shadow: 3px 3px 2px #ccc;
           border: 1px solid white;
           height: 5px; border-radius: 2px;
           font-size: 1px;
@@ -148,17 +151,16 @@
           float: left;
       	  width: 70px; height: 68px;
       	  text-align: center;
-      	  margin: 2px;
+      	  margin: 2px 2px 5px 2px;
       	  border: #dfdfff 1px solid;
       }
       div.dalsibarva img {
       	  border: black solid 1px;
       	  border-radius: 2px;
-      	  margin-bottom: 3px;
       }
       div.hrac_historie {
         clear: both; margin: 5px;
-        height: 80px;
+        height: 98px;
         background-color: #c0d0c0;
       }
       div.hrac_jmeno {
@@ -213,18 +215,17 @@
           };
       };
       function displayPredavka() {
-          $('div#hrac_jmeno').text(hra.hraci[hra.aktualni].name);
+          $('div#hrac_jmeno').text(hra.hraci[0].name);
           $('div#predavka').css('display', '');
       };
       function pripravHru() {
         hra = { hraci: [], karty: [], nastole: [], lizani: 0, cekani: false, historie: [] };
-      	 var hr_index = 0;
          $('input.hraci_jmena').map(function(index, el) {
          		 if (el.value) {
-          		 	 hra.hraci[hr_index++] = { 
+          		 	 hra.hraci.push({ 
           		 	   name: el.value, 
           		 	   vruce: [] 
-          		 	 };
+          		 	 });
          		 };
          });
          var kr_index = 0;
@@ -253,26 +254,31 @@
            hra.nastole.push(kr_trideni++);
          };
          hra.dalsi_barva = hra.karty[hra.nastole[0]].barva;
-         hra.aktualni = 0;
          hra.lizani = (hodnoty[hra.karty[hra.nastole[0]].hodnota] == '7') ? 2 : 0;
          hra.cekani = (hodnoty[hra.karty[hra.nastole[0]].hodnota] == 'A');
       };
-      function pridejKartu(el, kr_ix, btn) {
+      function pridejKartu(el, kr_ix, btn, shadow) {
         if (typeof(kr_ix) == 'number') {
           var karta = hra.karty[kr_ix];
           var barva = barvy[karta.barva] 
           var kr_html = '<div class="karta '
-                      + barva + '">'
+                      + barva 
+                      + ((shadow) ? ' shadow' : '')
+                      + '">'
                       + hodnoty[karta.hodnota]
                       + '</div>';
           var dt_karta = kr_ix; 
         }
         else {
-          var kr_html = '<div class="rub-karta">'+kr_ix+'</div>';
+          var kr_html = '<div class="rub-karta'
+                      + ((shadow) ? ' shadow' : '')
+                      + '">'+kr_ix+'</div>';
           var dt_karta = -btn;
         }
         var html = '<div data-karta="'+dt_karta+'" class="karta_box'
-                 + (btn > 0 ? ' klikaci': '') + '">';
+                 + (btn > 0 ? ' klikaci': '') 
+                 + ((shadow) ? ' mazaci' : '')
+                 + '">';
         html += kr_html;
         html += (btn > 0)
               ? '<div id="button-podkartou-'+kr_ix+'" class="podkartou">.</div>'
@@ -282,7 +288,7 @@
       }
       function vezmiKartu() {
         if ($(this).hasClass('vyrazna')) {
-          $('div.karta_box')
+          $('div.mazaci')
             .removeClass('vyrazna')
             .removeClass('maznuta');
           hra.volba = null;
@@ -290,7 +296,7 @@
           $('div#section_dalsibarva').addClass('hidden');
         }
         else {
-          $('div.karta_box')
+          $('div.mazaci')
             .removeClass('vyrazna')
             .addClass('maznuta');
           $(this)
@@ -351,22 +357,22 @@
       function displayStolek() {
          $('div#predavka').css('display', 'none');
          
-         $('div#section_hrac').text('Na tahu je hrac ' + hra.hraci[hra.aktualni].name + '.');
+         $('div#section_hrac').text('Na tahu je hrac ' + hra.hraci[0].name + '.');
          
          var vruce = $('div#vruce');
          vruce.empty();
-         for(var kr_ix in hra.hraci[hra.aktualni].vruce) {
-           var karta = hra.hraci[hra.aktualni].vruce[kr_ix];
-           pridejKartu(vruce, karta, povolenaKarta(karta));
+         for(var kr_ix in hra.hraci[0].vruce) {
+           var karta = hra.hraci[0].vruce[kr_ix];
+           pridejKartu(vruce, karta, povolenaKarta(karta), true);
          };
          
          var nastole = $('div#nastole');
          nastole.empty();
-         pridejKartu(nastole, hra.nastole[0], false);
-         pridejKartu(nastole, hra.nastole.length-1 + ' karet', false);
+         pridejKartu(nastole, hra.nastole[0], false, true);
+         pridejKartu(nastole, hra.nastole.length-1 + ' karet', false, true);
          
          var lizani = povoleneLizani(karta);
-         if (lizani > 0) pridejKartu(nastole, 'Lizni ' + lizani, lizani);
+         if (lizani > 0) pridejKartu(nastole, 'Lizni ' + lizani, lizani, true);
          
          $('div.klikaci').click(vezmiKartu);
          
@@ -375,17 +381,20 @@
          var historie = $('div#historie');
          historie.empty();
          for(var hr_ix in hra.hraci) {
-           if (hr_ix != hra.aktualni) {
-             historie.append('<div id="hrac-historie-'+hr_ix+'" class="hrac_historie"></div>');
-             var hr_hist = $('div#hrac-historie-'+hr_ix);
-             hr_hist.append('<div class="hrac_jmeno">' + hra.hraci[hr_ix].name + '</name>'); 
-             pridejKartu(hr_hist, 
-               hra.hraci[hr_ix].vruce.length + ' karet', false);
+           if (hr_ix > 0) {
              if (hra.hraci[hr_ix].tah) {
+               historie.append('<div id="hrac-historie-'+hr_ix+'" class="hrac_historie"></div>');
+               var hr_hist = $('div#hrac-historie-'+hr_ix);
+               hr_hist.append('<div class="hrac_jmeno">' + hra.hraci[hr_ix].name + '</name>'); 
+               pridejKartu(hr_hist, 
+                 hra.hraci[hr_ix].vruce.length + ' karet', false, false);
                if (hra.hraci[hr_ix].tah.karta >= 0) {
-                 pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, false);
+                 pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, false, false);
                  if (hodnoty[hra.karty[hra.hraci[hr_ix].tah.karta].hodnota]=='Q') {
-                   hr_hist.append('<div class="hrac_zprava">Nova barva je<br/>' + barvy[hra.hraci[hr_ix].tah.barva] + '</div>');
+                   hr_hist.append(
+                        '<div class="hrac_zprava">Nova barva je<br/>' 
+                      + '<img src="' + barvy[hra.hraci[hr_ix].tah.barva] + '68.png"/>' 
+                      + '</div>');
                  }
                }
                else 
@@ -395,10 +404,7 @@
                else {
                  hr_hist.append('<div class="hrac_zprava">Vynechal</div>');
                }
-             }
-             else {
-               hr_hist.append('<div class="hrac_zprava">Jeste<br/>nehral</div>');
-             }
+             };
            }
          };
          
@@ -408,8 +414,8 @@
          $('div#stolek').css('display', '');
       }
       function zapisHistorii(lizal, karta, barva) {
-        hra.hraci[hra.aktualni].tah = {'lizal': lizal, 'karta': karta, 'barva': barva};
-        hra.historie.unshift({'hrac': hra.aktualni, 'lizal': lizal, 'karta': karta, 'barva': barva});
+        hra.hraci[0].tah = {'lizal': lizal, 'karta': karta, 'barva': barva};
+        hra.historie.unshift({'hrac': hra.hraci[0].name, 'lizal': lizal, 'karta': karta, 'barva': barva});
       }
       function dalsiTah() {
         if (hra.volba==null) {
@@ -420,15 +426,15 @@
             var karty = -hra.volba;
             zapisHistorii(karty, -1, -1);
             while (karty > 0) {
-              hra.hraci[hra.aktualni].vruce.push(hra.nastole.pop());
+              hra.hraci[0].vruce.push(hra.nastole.pop());
               karty--;
             };
             hra.lizani = 0;
           }
           else {               // vyhodit zvolenou kartu
-            var idx = hra.hraci[hra.aktualni].vruce.indexOf(hra.volba);
+            var idx = hra.hraci[0].vruce.indexOf(hra.volba);
             if (idx != -1) { 
-              hra.hraci[hra.aktualni].vruce.splice(idx, 1);
+              hra.hraci[0].vruce.splice(idx, 1);
               hra.nastole.unshift(hra.volba);
               if (hodnoty[hra.karty[hra.volba].hodnota]=='7') {
                 hra.lizani += 2;
@@ -451,7 +457,7 @@
         displayStolek();
        };
       function displayVitez() {
-        $('div#hrac_vitez').text(hra.hraci[hra.aktualni].name);
+        $('div#hrac_vitez').text(hra.hraci[0].name);
         $('div#vitez').css('display', '');
       };
       function clickNovaHra () {
@@ -470,7 +476,7 @@
         };
         $('div#stolek').css('display', 'none');
         dalsiTah();
-        if (hra.hraci[hra.aktualni].vruce.length==0) {
+        if (hra.hraci[0].vruce.length==0) {
           displayVitez();
         }
         else {
@@ -479,8 +485,7 @@
         };
       };
       function dalsiHrac() {
-      	 hra.aktualni++;
-      	 if (!hra.hraci[hra.aktualni]) hra.aktualni = 0;
+        hra.hraci.push(hra.hraci.shift());
       };
     </script>
 </head> 
@@ -520,10 +525,10 @@
     <div class="hidden" id="section_dalsibarva">
       <div class="title">Zvol dalsi barvu</div>
       <div id="dalsibarva">
-        <div data-barva="0" class="dalsibarva"><img src="srdce.png"></div>
-        <div data-barva="1" class="dalsibarva"><img src="kary.png"></div>
-        <div data-barva="2" class="dalsibarva"><img src="zelena.png"></div>
-        <div data-barva="3" class="dalsibarva"><img src="zaludy.png"></div>
+        <div data-barva="0" class="dalsibarva shadow"><img src="srdce68.png"></div>
+        <div data-barva="1" class="dalsibarva shadow"><img src="kary68.png"></div>
+        <div data-barva="2" class="dalsibarva shadow"><img src="zelena68.png"></div>
+        <div data-barva="3" class="dalsibarva shadow"><img src="zaludy68.png"></div>
       </div>
     </div>
     <div id="section_vruce">
