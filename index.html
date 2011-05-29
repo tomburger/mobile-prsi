@@ -2,178 +2,9 @@
 <html> 
     <head> 
     <title>Karetni hra Prsi</title> 
+    <link rel="stylesheet" type="text/css" href="main.css">
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
-    <style>
-      body { height: 100%; background-color: #dfdfff; margin: 0px; padding: 0px; }
-      div.header { padding: 5px; text-align: left; background-color: black; }
-      div.header h1 { margin: 0px; color: white; font: bold 1em Arial, sans-serif; }
-      div.view { margin: 0px; padding: 5px 0px; }
-      div.input_row { 
-          clear: both; height: 35px;
-          margin: 0px 0px 5px 0px; }
-      div.input { padding: 0px; float: left; }
-      input.hraci_jmena { 
-          padding: 5px; margin: 3px;
-          border: 1px solid orange; border-radius: 5px;}
-      div.label { 
-          padding: 10px 5px;
-          font: 14px Arial, sans-serif;
-          float: left; width: 100px;
-          text-align: right;
-      }
-      div.hidden { display: none; }
-      div.button {
-          clear: both;
-          padding: 5px;
-          margin: 0px 5px;
-          border: 1px solid black;
-          border-radius: 5px;
-          background-color: #4f4f4f;
-          font: 20px Arial, sans-serif;
-          text-align: center;
-          text-shadow: 1px 1px 2px black;
-          cursor: pointer;
-          color: white;
-          font-weight: bold;
-      }
-      div.disabled {
-          color: gray;
-      }
-      div.panel {
-      	  margin: 10px; padding: 10px; 
-      	  font: bold 15px Arial, sans-serif; 
-      	  text-align: center;
-      }
-      div#predavka div.panel {
-      	  background-color: black; color: white;
-      }
-      div#hrac_jmeno {
-      	  border: 1px solid white;
-      	  border-radius: 10px;
-      	  font: bold 40px Arial, sans-serif; color: white;
-      	  margin: 30px 10px 30px 10px; padding: 10px; 
-      }
-      div#vitez div.panel {
-      	  background-color: #7fff7f; color: #7f2f2f;
-      }
-      div#hrac_vitez {
-      	  border: 1px solid white;
-      	  font: bold 40px Arial, sans-serif; color: white;
-      	  margin: 30px 10px 30px 10px; padding: 10px; 
-      }
-      div.panel div.button {
-      	  margin-top: 40px; 
-      }
-      div.title {
-      }
-      div.karta_box {
-      	  float: left;
-      	  width: 70px; 
-      	  margin: 2px; 
-      }
-      div.mazaci { border: #dfdfff 1px solid; }
-      div.klikaci {
-      	  cursor: pointer;
-      }
-      div.maznuta {
-        opacity: .3;
-      }
-      div.vyrazna {
-        border: white 1px solid;
-      }
-      div.karta {
-      	  width: 68px; height: 75px; 
-      	  border: black solid 1px;
-      	  border-radius: 2px;
-      	  margin-bottom: 3px;
-      	  padding-top: 15px;
-      	  font: bold 50px Arial, sans-serif;
-      	  text-align: center;
-      	  vertical-align: middle;
-      }
-      div.shadow { box-shadow: 3px 3px 2px #ccc; }
-      div.srdce  {
-        color: black;
-        text-shadow: 1px 1px 2px white;
-        background: white url('srdce.png') no-repeat 2px 2px; 
-      }
-      div.kary   { 
-        color: black;
-        text-shadow: 1px 1px 2px white;
-        background: white url('kary.png') no-repeat 2px 2px; 
-      }
-      div.zelena {
-        color: #c0905f;
-        text-shadow: 1px 1px 2px white;
-        background: white url('zelena.png') no-repeat 2px 2px; 
-      }
-      div.zaludy { 
-        color: #c0905f;
-        text-shadow: 1px 1px 2px white;
-        background: white url('zaludy.png') no-repeat 2px 2px; 
-      }
-      div.rub-karta {
-      	  width: 68px; height: 90px; 
-      	  border: black solid 1px;
-      	  margin-bottom: 3px; 
-      	  background-color: silver; color: black;
-      	  font: bold 25px Arial, sans-serif;
-      	  text-align: center;
-      	  vertical-align: middle; 
-      }
-      div.podstavec {
-          width: 70px; height: 7px;
-          margin: 0px; padding: 0px;
-          font-size: 1px;
-      }
-      div.podkartou {
-          width: 68px;
-          background-color: #7fff59; color: #7fff59;
-      	  box-shadow: 3px 3px 2px #ccc;
-          border: 1px solid white;
-          height: 5px; border-radius: 2px;
-          font-size: 1px;
-      }
-      div.title {
-        clear:both;
-     	  margin: 0px; padding: 5px; background-color: blue;
-      	font: bold 12px Arial, sans-serif; color: white;
-      	text-align: center;
-      }
-      div#section_hrac {
-        margin: 5px; 
-        background-color: #c0d0c0;
-      	font: bold 20px Arial, sans-serif; color: black;
-      	padding: 5px;
-      }
-      div.dalsibarva {
-          float: left;
-      	  width: 70px; height: 68px;
-      	  text-align: center;
-      	  margin: 2px 2px 5px 2px;
-      	  border: #dfdfff 1px solid;
-      }
-      div.dalsibarva img {
-      	  border: black solid 1px;
-      	  border-radius: 2px;
-      }
-      div.hrac_historie {
-        clear: both; margin: 5px;
-        height: 98px;
-        background-color: #c0d0c0;
-      }
-      div.hrac_jmeno {
-      	font: bold 20px Arial, sans-serif; color: black;
-      	padding: 5px; 
-        float: left; width: 120px;
-      }
-      div.hrac_zprava {
-      	font: bold 20px Arial, sans-serif; color: black;
-      	padding: 5px; 
-        float: left;
-      }
-    </style>
     <script type="text/javascript">
       $(document).ready(function() {
           $('div#zacni_hru').click(clickZacniHru);
@@ -215,7 +46,7 @@
           };
       };
       function displayPredavka() {
-          $('div#hrac_jmeno').text(hra.hraci[0].name);
+          $('div#hrac_predavka').text(hra.hraci[0].name);
           $('div#predavka').css('display', '');
       };
       function pripravHru() {
@@ -357,7 +188,7 @@
       function displayStolek() {
          $('div#predavka').css('display', 'none');
          
-         $('div#section_hrac').text('Na tahu je hrac ' + hra.hraci[0].name + '.');
+         $('div#section_hrac').empty().append('<div class="hrac_na_tahu">Na tahu je hrac ' + hra.hraci[0].name + '</div>');
          
          var vruce = $('div#vruce');
          vruce.empty();
@@ -380,9 +211,12 @@
             
          var historie = $('div#historie');
          historie.empty();
+         
+         var zadna_historie = true;
          for(var hr_ix in hra.hraci) {
            if (hr_ix > 0) {
              if (hra.hraci[hr_ix].tah) {
+               zadna_historie = false;
                historie.append('<div id="hrac-historie-'+hr_ix+'" class="hrac_historie"></div>');
                var hr_hist = $('div#hrac-historie-'+hr_ix);
                hr_hist.append('<div class="hrac_jmeno">' + hra.hraci[hr_ix].name + '</name>'); 
@@ -393,7 +227,7 @@
                  if (hodnoty[hra.karty[hra.hraci[hr_ix].tah.karta].hodnota]=='Q') {
                    hr_hist.append(
                         '<div class="hrac_zprava">Nova barva je<br/>' 
-                      + '<img src="' + barvy[hra.hraci[hr_ix].tah.barva] + '68.png"/>' 
+                      + '<img src="' + barvy[hra.hraci[hr_ix].tah.barva] + '50.png"/>' 
                       + '</div>');
                  }
                }
@@ -402,10 +236,13 @@
                  hr_hist.append('<div class="hrac_zprava">' + hra.hraci[hr_ix].tah.lizal + 'krat<br/>liznul</div>');
                }
                else {
-                 hr_hist.append('<div class="hrac_zprava">Vynechal</div>');
+                 hr_hist.append('<div class="hrac_zprava">Vynechal kvuli esu</div>');
                }
              };
            }
+         };
+         if (zadna_historie) {
+           historie.append('<div id="hrac-historie-none" class="hrac_historie">Jeste nikdo nehral</div>');
          };
          
          hra.volba = null;
@@ -494,6 +331,7 @@
     <h1>Prsi - karetni hra</h1>
   </div>
   <div id="hraci" class="view">
+    <div class="napoveda">Prsi je karetni hra pro 2 az 5 hracu. Zadejte jmeno minimalne dvou hracu.</div>
     <div class="input_row">
       <div class="label"><label for="name-hrace-1">Prvni hrac</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-1" id="name-hrace-1"></div>
@@ -517,12 +355,12 @@
     <div id="zacni_hru" class="button">Zacni hru</div>
   </div>
   <div id="stolek" class="view">
-    <div id="section_hrac"></div>
-    <div id="section_nastole">
+    <div class="section" id="section_hrac"></div>
+    <div class="section" id="section_nastole">
       <div class="title">Karty na stole</div>
       <div id="nastole"></div>
     </div>
-    <div class="hidden" id="section_dalsibarva">
+    <div class="section hidden" id="section_dalsibarva">
       <div class="title">Zvol dalsi barvu</div>
       <div id="dalsibarva">
         <div data-barva="0" class="dalsibarva shadow"><img src="srdce68.png"></div>
@@ -531,20 +369,20 @@
         <div data-barva="3" class="dalsibarva shadow"><img src="zaludy68.png"></div>
       </div>
     </div>
-    <div id="section_vruce">
+    <div class="section" id="section_vruce">
       <div class="title">Karty co mas v ruce</div>
       <div id="vruce"></div>
     </div>
-    <div id="section_historie">
+    <div class="button" id="tah_hotovy">Hotovo! Dalsi hrac</div>
+    <div class="section" id="section_historie">
       <div class="title">Ostatni hraci</div>
       <div id="historie"></div>
     </div>
-    <div class="button" id="tah_hotovy">Hotovo! Dalsi hrac</div>
   </div>
   <div id="predavka" class="view">
     <div class="panel">
       Na rade je
-      <div id="hrac_jmeno"></div>
+      <div id="hrac_predavka"></div>
       Az budes pripraveny, klikni na tlacitko...
       <div class="button" id="jdi_na_tah">Pripraven na hru</div>
     </div>

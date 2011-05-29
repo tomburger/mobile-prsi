@@ -1,0 +1,202 @@
+body { height: 100%; background-color: #7faff2; margin: 0px; padding: 0px; }
+div.header { padding: 5px; text-align: left; background-color: black; }
+div.header h1 { margin: 0px; color: white; font: bold 1em Arial, sans-serif; }
+div.view { margin: 0px; padding: 5px 0px; }
+div.input_row { 
+    clear: both; height: 35px;
+    margin: 0px 0px 5px 0px; }
+div.input { padding: 0px; float: left; }
+input.hraci_jmena { 
+    padding: 5px; margin: 3px;
+    border: 1px solid orange; border-radius: 5px;}
+div.label { 
+    padding: 10px 5px;
+    font: bold 14px Arial, sans-serif;
+    float: left; width: 100px;
+    text-align: right;
+}
+div.hidden { display: none; }
+div.button {
+    clear: both;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #4f4f4f;
+    font: 20px Arial, sans-serif;
+    text-align: center;
+    text-shadow: 1px 1px 2px black;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+div.disabled {
+    color: gray;
+}
+div.panel {
+    margin: 10px; padding: 10px; 
+    font: bold 15px Arial, sans-serif; 
+    text-align: center;
+}
+
+div#predavka div.panel {
+    padding: 30px 0px;
+    background-color: #ffff8e; color: black;
+}
+
+div#hrac_predavka {
+    border: 1px solid gray;
+    box-shadow: 3px 3px 5px #333;
+    border-radius: 5px;
+    background-color: #acffc0;
+    font: bold 40px Arial, sans-serif; color: black;
+    margin: 30px 10px 30px 10px; padding: 10px; 
+}
+
+
+div#vitez div.panel {
+    padding: 30px 0px;
+    background-color: #39cd24; color: #7f2f2f;
+}
+div#hrac_vitez {
+    border: 1px solid gray;
+    box-shadow: 3px 3px 5px #333;
+    border-radius: 5px;
+    background-color: #17c38c;
+    font: bold 40px Arial, sans-serif; color: white;
+    margin: 30px 10px 30px 10px; padding: 10px; 
+}
+
+div.panel div.button {
+    margin-top: 40px; 
+}
+div.title {
+}
+div.karta_box {
+    float: left;
+    width: 70px; 
+    margin: 2px; 
+}
+div.mazaci { border: #7faff2 1px solid; }
+div.klikaci {
+    cursor: pointer;
+}
+div.maznuta {
+  opacity: .3;
+}
+div.vyrazna {
+  border: white 1px solid;
+}
+div.karta {
+    width: 68px; height: 75px; 
+    border: black solid 1px;
+    border-radius: 2px;
+    margin-bottom: 3px;
+    padding-top: 15px;
+    font: bold 50px Arial, sans-serif;
+    text-align: center;
+    vertical-align: middle;
+}
+div.shadow { box-shadow: 3px 3px 2px #777; }
+div.srdce  {
+  color: black;
+  background: white url('srdce.png') no-repeat 2px 2px; 
+}
+div.kary   { 
+  color: black;
+  background: white url('kary.png') no-repeat 2px 2px; 
+}
+div.zelena {
+  color: #c0905f;
+  background: white url('zelena.png') no-repeat 2px 2px; 
+}
+div.zaludy { 
+  color: #c0905f;
+  background: white url('zaludy.png') no-repeat 2px 2px; 
+}
+div.rub-karta {
+    width: 68px; height: 90px; 
+    border: black solid 1px;
+    margin-bottom: 3px; 
+    background: url('rub_karty19.png') repeat; 
+    color: black;
+    font: bold 25px Arial, sans-serif;
+    text-align: center;
+    vertical-align: middle; 
+}
+div.podstavec {
+    width: 70px; height: 7px;
+    margin: 0px; padding: 0px;
+    font-size: 1px;
+}
+div.podkartou {
+    width: 68px;
+    background-color: #7fff59; color: #7fff59;
+    box-shadow: 3px 3px 2px #777;
+    border: 1px solid white;
+    height: 5px; border-radius: 2px;
+    font-size: 1px;
+}
+div.title {
+  clear:both;
+  margin: 5px; padding: 5px; 
+  background-color: #2f2bc4;
+  border-radius: 5px;
+  font: bold 20px Arial, sans-serif; color: white;
+  text-align: center;
+}
+div.section { 
+  overflow: hidden;
+}
+div.napoveda {
+  background-color: #c0d0ff;
+  font: bold 15px Arial, sans-serif; color: black;
+  border-radius: 5px;
+  margin: 5px; 
+  padding: 5px;
+}
+div.hrac_na_tahu {
+  background-color: #c0d0ff;
+  font: bold 20px Arial, sans-serif; color: black;
+  border-radius: 5px;
+  margin: 5px; 
+  padding: 5px;
+}
+div.dalsibarva {
+    float: left;
+    width: 70px; height: 68px;
+    text-align: center;
+    margin: 2px 2px 5px 2px;
+    border: #7faff2 1px solid;
+}
+div.dalsibarva img {
+    border: black solid 1px;
+    border-radius: 2px;
+}
+div.hrac_historie {
+  clear: both; margin: 5px;
+  height: 98px;
+  border-radius: 5px;
+  background-color: #c0d0ff;
+}
+div#hrac-historie-none {
+  font: bold 20px Arial, sans-serif; color: black;
+  text-align: center;
+  height: 30px;
+  padding: 5px; 
+}
+div.hrac_jmeno {
+  font: bold 20px Arial, sans-serif; color: black;
+  padding: 5px; 
+  float: left; width: 120px;
+}
+div.hrac_zprava {
+  font: bold 20px Arial, sans-serif; color: black;
+  padding: 5px; 
+  float: left;
+}
+div.hrac_zprava img {
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
