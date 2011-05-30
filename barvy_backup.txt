@@ -1,0 +1,14 @@
+barevne schema 1
+
+body background rgb(149, 149, 189)
+#predavka panel background rgb(208, 204, 217)
+#hrac_predavka background rgb(253, 192, 68)
+
+#vitez panel background rgb(222, 216, 218)
+#hrac_vitez background rgb(254, 155, 65)
+
+podkartou color/background rgb(6, 255, 6)
+
+title background rgb(65, 65, 103)
+
+napoveda background #c0d0ff

@@ -24,7 +24,7 @@
       function t(txt) {
         var text = texts[txt];
         if (!text) alert(txt);
-        var formatted = text.en;
+        var formatted = text.cz;
         for(arg in arguments) {
           if (arg > 0) formatted = formatted.replace("{" + arg + "}", arguments[arg]);
         }
@@ -246,9 +246,7 @@
                  pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, false, false);
                  if (hodnoty[hra.karty[hra.hraci[hr_ix].tah.karta].hodnota]=='Q') {
                    hr_hist.append(
-                        '<div class="hrac_zprava">' + t('new_color') + '<br/>' 
-                      + '<img src="' + barvy[hra.hraci[hr_ix].tah.barva] + '50.png"/>' 
-                      + '</div>');
+                        '<div class="hrac_novabarva"><img src="' + barvy[hra.hraci[hr_ix].tah.barva] + '30.png"/></div>');
                  }
                }
                else 
