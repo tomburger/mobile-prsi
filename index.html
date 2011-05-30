@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="main.css">
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lang.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
           $('div#zacni_hru').click(clickZacniHru);
@@ -16,18 +17,31 @@
           $('div.view').css('display', 'none');
           $('div.panel').height(300);
           initHraci();
+          $('.translate').map(function() {
+              $(this).text(t($(this).text()));
+          });
       });
-      var enabledZacniHru = false;
+      function t(txt) {
+        var text = texts[txt];
+        if (!text) alert(txt);
+        var formatted = text.en;
+        for(arg in arguments) {
+          if (arg > 0) formatted = formatted.replace("{" + arg + "}", arguments[arg]);
+        }
+        return formatted;        
+      }
       function initHraci() {
           $('div#hraci').css('display', '');
           changeHraciJmena(null);
       };
-      function changeHraciJmena(event) {
+      function enabledZacniHru() {
       	  var vyplneniHraci = $('input.hraci_jmena').filter(
       	  	  function(index) { return this.value; }
       	  	  );
-      	  enabledZacniHru = (vyplneniHraci.length >= 2);
-      	  if (enabledZacniHru) 
+      	  return (vyplneniHraci.length >= 2);
+      }
+      function changeHraciJmena(event) {
+      	  if (enabledZacniHru()) 
             $('div#zacni_hru').removeClass('disabled')
           else
             $('div#zacni_hru').addClass('disabled');
@@ -36,8 +50,8 @@
       var hodnoty = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
       var barvy = ['srdce', 'kary', 'zelena', 'zaludy'];
       function clickZacniHru(event) {
-          if (!enabledZacniHru) {
-            alert('Jsou potreba aspon dva hraci');
+          if (!enabledZacniHru()) {
+            alert(t('at_least_2_players_needed'));
           }
           else {
               $('div#hraci').css('display', 'none');
@@ -50,7 +64,7 @@
           $('div#predavka').css('display', '');
       };
       function pripravHru() {
-        hra = { hraci: [], karty: [], nastole: [], lizani: 0, cekani: false, historie: [] };
+         hra = { hraci: [], karty: [], nastole: [], lizani: 0, cekani: false, historie: [] };
          $('input.hraci_jmena').map(function(index, el) {
          		 if (el.value) {
           		 	 hra.hraci.push({ 
@@ -185,10 +199,17 @@
         };
         return povoleno;
       }
+      function pocetKaretText(karet) {
+        return t(
+          ((karet == 1) ? '1_card' : 
+          ((karet <= 4) ? '2_4_cards{1}' :
+                         'more_cards{1}')),
+        karet);
+      }
       function displayStolek() {
          $('div#predavka').css('display', 'none');
          
-         $('div#section_hrac').empty().append('<div class="hrac_na_tahu">Na tahu je hrac ' + hra.hraci[0].name + '</div>');
+         $('div#section_hrac').empty().append('<div class="hrac_na_tahu">' + t('player_on_move({1})', hra.hraci[0].name) + '</div>');
          
          var vruce = $('div#vruce');
          vruce.empty();
@@ -200,10 +221,10 @@
          var nastole = $('div#nastole');
          nastole.empty();
          pridejKartu(nastole, hra.nastole[0], false, true);
-         pridejKartu(nastole, hra.nastole.length-1 + ' karet', false, true);
+         pridejKartu(nastole, pocetKaretText(hra.nastole.length-1), false, true);
          
          var lizani = povoleneLizani(karta);
-         if (lizani > 0) pridejKartu(nastole, 'Lizni ' + lizani, lizani, true);
+         if (lizani > 0) pridejKartu(nastole, t('take_cards({1})', lizani), lizani, true);
          
          $('div.klikaci').click(vezmiKartu);
          
@@ -220,29 +241,28 @@
                historie.append('<div id="hrac-historie-'+hr_ix+'" class="hrac_historie"></div>');
                var hr_hist = $('div#hrac-historie-'+hr_ix);
                hr_hist.append('<div class="hrac_jmeno">' + hra.hraci[hr_ix].name + '</name>'); 
-               pridejKartu(hr_hist, 
-                 hra.hraci[hr_ix].vruce.length + ' karet', false, false);
+               pridejKartu(hr_hist, pocetKaretText(hra.hraci[hr_ix].vruce.length), false, false);
                if (hra.hraci[hr_ix].tah.karta >= 0) {
                  pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, false, false);
                  if (hodnoty[hra.karty[hra.hraci[hr_ix].tah.karta].hodnota]=='Q') {
                    hr_hist.append(
-                        '<div class="hrac_zprava">Nova barva je<br/>' 
+                        '<div class="hrac_zprava">' + t('new_color') + '<br/>' 
                       + '<img src="' + barvy[hra.hraci[hr_ix].tah.barva] + '50.png"/>' 
                       + '</div>');
                  }
                }
                else 
                if (hra.hraci[hr_ix].tah.lizal > 0) {
-                 hr_hist.append('<div class="hrac_zprava">' + hra.hraci[hr_ix].tah.lizal + 'krat<br/>liznul</div>');
+                 hr_hist.append('<div class="hrac_zprava">' + t('taken_cards:{1}', hra.hraci[hr_ix].tah.lizal) + '</div>');
                }
                else {
-                 hr_hist.append('<div class="hrac_zprava">Vynechal kvuli esu</div>');
+                 hr_hist.append('<div class="hrac_zprava">' + t('skipped_due_a') + '</div>');
                }
              };
            }
          };
          if (zadna_historie) {
-           historie.append('<div id="hrac-historie-none" class="hrac_historie">Jeste nikdo nehral</div>');
+           historie.append('<div id="hrac-historie-none" class="hrac_historie">' + t('no_moves_yet') + '</div>');
          };
          
          hra.volba = null;
@@ -307,7 +327,7 @@
             hra.cekani = false; // cekame na esu, nedelame nic...
           }
           else {
-            alert('Jeste si se nerozhodl, jaky bude dalsi tah!');
+            alert(t('decide_on_move_first'));
             return;
           };
         };
@@ -328,40 +348,40 @@
 </head> 
 <body> 
   <div id="header" class="header">
-    <h1>Prsi - karetni hra</h1>
+    <h1 class="translate">game_header</h1>
   </div>
   <div id="hraci" class="view">
-    <div class="napoveda">Prsi je karetni hra pro 2 az 5 hracu. Zadejte jmeno minimalne dvou hracu.</div>
+    <div class="napoveda translate">player_intro</div>
     <div class="input_row">
-      <div class="label"><label for="name-hrace-1">Prvni hrac</label></div>
+      <div class="label"><label class="translate" for="name-hrace-1">player_1st</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-1" id="name-hrace-1"></div>
     </div>
     <div class="input_row">
-      <div class="label"><label for="name-hrace-2">Druhy hrac</label></div>
+      <div class="label"><label class="translate" for="name-hrace-2">player_2nd</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-2" id="name-hrace-2"></div>
     </div>
     <div class="input_row">
-      <div class="label"><label for="name-hrace-3">Treti hrac</label></div>
+      <div class="label"><label class="translate" for="name-hrace-3">player_3rd</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-3" id="name-hrace-3"></div>
     </div>
     <div class="input_row">
-      <div class="label"><label for="name-hrace-4">Ctvrty hrac</label></div>
+      <div class="label"><label class="translate" for="name-hrace-4">player_4th</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-4" id="name-hrace-4"></div>
     </div>
     <div class="input_row">
-      <div class="label"><label for="name-hrace-5">Paty hrac</label></div>
+      <div class="label"><label class="translate" for="name-hrace-5">player_5th</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-5" id="name-hrace-5"></div>
     </div>
-    <div id="zacni_hru" class="button">Zacni hru</div>
+    <div id="zacni_hru" class="button translate">start_game_button</div>
   </div>
   <div id="stolek" class="view">
     <div class="section" id="section_hrac"></div>
     <div class="section" id="section_nastole">
-      <div class="title">Karty na stole</div>
+      <div class="title translate">title_cards_on_desk</div>
       <div id="nastole"></div>
     </div>
     <div class="section hidden" id="section_dalsibarva">
-      <div class="title">Zvol dalsi barvu</div>
+      <div class="title translate">title_select_next_color</div>
       <div id="dalsibarva">
         <div data-barva="0" class="dalsibarva shadow"><img src="srdce68.png"></div>
         <div data-barva="1" class="dalsibarva shadow"><img src="kary68.png"></div>
@@ -370,29 +390,29 @@
       </div>
     </div>
     <div class="section" id="section_vruce">
-      <div class="title">Karty co mas v ruce</div>
+      <div class="title translate">title_cards_in_hand</div>
       <div id="vruce"></div>
     </div>
-    <div class="button" id="tah_hotovy">Hotovo! Dalsi hrac</div>
+    <div class="button translate" id="tah_hotovy">ready_next_button</div>
     <div class="section" id="section_historie">
-      <div class="title">Ostatni hraci</div>
+      <div class="title translate">title_other_players</div>
       <div id="historie"></div>
     </div>
   </div>
   <div id="predavka" class="view">
     <div class="panel">
-      Na rade je
+      <span class="translate">next_player_is</span>
       <div id="hrac_predavka"></div>
-      Az budes pripraveny, klikni na tlacitko...
-      <div class="button" id="jdi_na_tah">Pripraven na hru</div>
+      <span class="translate">when_ready_click_button</span>
+      <div class="button translate" id="jdi_na_tah">ready_for_game_button</div>
     </div>
   </div>
   <div id="vitez" class="view">
     <div class="panel">
-      Tradaaaa! Vitezem se stava
+      <span class="translate">and_winner_is</span>
       <div id="hrac_vitez"></div>
-      Trosku to oslavte a pustte se do odvety
-      <div class="button" id="nova_hra">Nova hra</div>
+      <span class="translate">celebrate_hint</span>
+      <div class="button translate" id="nova_hra">new_game_button</div>
     </div>
   </div>
 </body>
