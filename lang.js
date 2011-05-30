@@ -10,7 +10,8 @@ var texts = {
   '1_card': { en: '1 card', cz: '' },
   '2_4_cards{1}': { en: '{1} cards', cz: '' },
   'more_cards{1}': { en: '{1} cards', cz: '' },
-  'game_header': { en: 'MauMau Mobile', cz: '' },
+  'game_header1': { en: 'MauMau', cz: '' },
+  'game_header2': { en: 'Mobile', cz: '' },
   'player_intro': { en: 'MauMau is game for 2-5 players.', cz: '' },
   'player_1st': { en: 'Player #1', cz: '' },
   'player_2nd': { en: 'Player #2', cz: '' },
@@ -26,7 +27,7 @@ var texts = {
   'next_player_is': { en: 'Next player is', cz: '' },
   'when_ready_click_button': { en: 'When ready, click on button', cz: '' },
   'ready_for_game_button': { en: 'Ready for game', cz: '' },
-  'and_winner_is': { en: 'And winner is', cz: '' },
+  'and_winner_is': { en: 'WINNER', cz: '' },
   'celebrate_hint': { en: 'Celebrate a bit and start anoter game', cz: '' },
   'new_game_button': { en: 'New game', cz: '' } 
 };

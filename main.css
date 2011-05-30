@@ -1,6 +1,9 @@
-body { height: 100%; background-color: #7faff2; margin: 0px; padding: 0px; }
+body { height: 100%; background-color: rgb(207, 167, 210); margin: 0px; padding: 0px; }
 div.header { padding: 5px; text-align: left; background-color: black; }
-div.header h1 { margin: 0px; color: white; font: bold 1em Arial, sans-serif; }
+div.header h1 { margin: 0px; font: bold 1em Arial, sans-serif; }
+div.header h1 span#h1_first { color: rgb(205, 12, 186); }
+div.header h1 span#h1_second { color: white; }
+
 div.view { margin: 0px; padding: 5px 0px; }
 div.input_row { 
     clear: both; height: 35px;
@@ -41,14 +44,14 @@ div.panel {
 
 div#predavka div.panel {
     padding: 30px 0px;
-    background-color: #ffff8e; color: black;
+    background-color: rgb(208, 204, 217); color: black;
 }
 
 div#hrac_predavka {
     border: 1px solid gray;
     box-shadow: 3px 3px 5px #333;
     border-radius: 5px;
-    background-color: #acffc0;
+    background-color: rgb(205, 12, 186);
     font: bold 40px Arial, sans-serif; color: black;
     margin: 30px 10px 30px 10px; padding: 10px; 
 }
@@ -56,28 +59,29 @@ div#hrac_predavka {
 
 div#vitez div.panel {
     padding: 30px 0px;
-    background-color: #39cd24; color: #7f2f2f;
+    background-color: rgb(238, 232, 237); color: #7f2f2f;
 }
 div#hrac_vitez {
     border: 1px solid gray;
     box-shadow: 3px 3px 5px #333;
     border-radius: 5px;
-    background-color: #17c38c;
+    background-color: rgb(205, 12, 186);
     font: bold 40px Arial, sans-serif; color: white;
     margin: 30px 10px 30px 10px; padding: 10px; 
+}
+span#title_vitez {
+    font: bold 40px Arial, sans-serif; color: rgb(205, 12, 186);
 }
 
 div.panel div.button {
     margin-top: 40px; 
-}
-div.title {
 }
 div.karta_box {
     float: left;
     width: 70px; 
     margin: 2px; 
 }
-div.mazaci { border: #7faff2 1px solid; }
+div.mazaci { border: rgb(207, 167, 210) 1px solid; }
 div.klikaci {
     cursor: pointer;
 }
@@ -131,7 +135,7 @@ div.podstavec {
 }
 div.podkartou {
     width: 68px;
-    background-color: #7fff59; color: #7fff59;
+    background-color: rgb(6, 255, 6); color: rgb(6, 255, 6);
     box-shadow: 3px 3px 2px #777;
     border: 1px solid white;
     height: 5px; border-radius: 2px;
@@ -140,23 +144,23 @@ div.podkartou {
 div.title {
   clear:both;
   margin: 5px; padding: 5px; 
-  background-color: #2f2bc4;
+  background-color: rgb(138, 68, 153);
   border-radius: 5px;
-  font: bold 20px Arial, sans-serif; color: white;
+  font: bold 20px Arial, sans-serif; color: rgb(227, 227, 234);
   text-align: center;
 }
 div.section { 
   overflow: hidden;
 }
 div.napoveda {
-  background-color: #c0d0ff;
+  background-color: rgb(236, 220, 239);
   font: bold 15px Arial, sans-serif; color: black;
   border-radius: 5px;
   margin: 5px; 
   padding: 5px;
 }
 div.hrac_na_tahu {
-  background-color: #c0d0ff;
+  background-color: rgb(236, 220, 239);
   font: bold 20px Arial, sans-serif; color: black;
   border-radius: 5px;
   margin: 5px; 
@@ -167,7 +171,7 @@ div.dalsibarva {
     width: 70px; height: 68px;
     text-align: center;
     margin: 2px 2px 5px 2px;
-    border: #7faff2 1px solid;
+    border: rgb(207, 167, 210) 1px solid;
 }
 div.dalsibarva img {
     border: black solid 1px;
@@ -177,7 +181,7 @@ div.hrac_historie {
   clear: both; margin: 5px;
   height: 98px;
   border-radius: 5px;
-  background-color: #c0d0ff;
+  background-color: rgb(236, 220, 239);
 }
 div#hrac-historie-none {
   font: bold 20px Arial, sans-serif; color: black;
