@@ -15,24 +15,21 @@ div.napoveda {
   margin: 5px; 
   padding: 5px;
 }
+
 div.input_row { 
-    clear: both; height: 35px;
-    margin: 0px 0px 5px 0px; 
+    margin: 0px 10px 10px 10px; 
+}
+div.label { 
+    font: bold 20px Arial, sans-serif;
 }
 div.input { 
-    padding: 0px; float: left;
 }
 div.input input.hraci_jmena { 
-    padding: 5px; margin: 3px;
+    padding: 5px; margin: 0px; width: 90%; 
     border: 1px solid; border-radius: 5px;
     font-size: 18px;
 }
-div.label { 
-    padding: 10px 5px;
-    font: bold 20px Arial, sans-serif;
-    float: left; width: 120px;
-    text-align: right;
-}
+
 div.hidden { display: none; }
 div.button {
     clear: both;

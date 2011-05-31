@@ -3,7 +3,6 @@
     <head> 
     <title>Karetni hra Prsi</title> 
     <link rel="stylesheet" type="text/css" href="main.css">
-    <!--  link rel="stylesheet" type="text/css" href="colors.css" -->
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="lang.js"></script>
@@ -11,6 +10,7 @@
       $(document).ready(function() {
           loadColors();
           $('div#zacni_hru').click(clickZacniHru);
+          $('div#pridej_hrace').click(clickPridejHrace);
           $('div#jdi_na_tah').click(clickJdiNaTah);
           $('div#tah_hotovy').click(clickTahHotovy);
           $('div#nova_hra').click(clickNovaHra);
@@ -50,6 +50,13 @@
       	  	  function(index) { return this.value; }
       	  	  );
       	  return (vyplneniHraci.length >= 2);
+      }
+      function clickPridejHrace() {
+        $('div.input_row.hidden:first').map(function() {
+            $(this).removeClass('hidden');
+        });
+        if ($('div.input_row.hidden').length == 0)
+          $('div#pridej_hrace').addClass('disabled');
       }
       function changeHraciJmena(event) {
       	  if (enabledZacniHru()) 
@@ -372,19 +379,20 @@
       <div class="label"><label class="translate" for="name-hrace-2">player_2nd</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-2" id="name-hrace-2"></div>
     </div>
-    <div class="input_row">
+    <div class="hidden input_row">
       <div class="label"><label class="translate" for="name-hrace-3">player_3rd</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-3" id="name-hrace-3"></div>
     </div>
-    <div class="input_row">
+    <div class="hidden input_row">
       <div class="label"><label class="translate" for="name-hrace-4">player_4th</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-4" id="name-hrace-4"></div>
     </div>
-    <div class="input_row">
+    <div class="hidden input_row">
       <div class="label"><label class="translate" for="name-hrace-5">player_5th</label></div>
       <div class="input"><input type="text" class="hraci_jmena" name="hrac-5" id="name-hrace-5"></div>
     </div>
     <div id="zacni_hru" class="button translate">start_game_button</div>
+    <div id="pridej_hrace" class="button translate">add_one_player</div>
   </div>
   <div id="stolek" class="view">
     <div class="section" id="section_hrac"></div>

@@ -18,6 +18,7 @@ var texts = {
   'player_4th': { en: 'Player #4', cz: 'Čtvrtý hráč' },
   'player_5th': { en: 'Player #5', cz: 'Pátý hráč' },
   'start_game_button': { en: 'Start game', cz: 'Začni hru' },
+  'add_one_player': { en: 'Add one player', cz: 'Přidat hráče' },
   'title_cards_on_desk': { en: 'Cards on desk', cz: 'Karty co jsou na stole' },
   'title_select_next_color': { en: 'Select the next color', cz: 'Vyber další barvu' },
   'title_cards_in_hand': { en: 'Cards in your hand', cz: 'Karty co máš v ruce' },
