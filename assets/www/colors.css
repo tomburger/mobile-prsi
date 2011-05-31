@@ -1,0 +1,78 @@
+body { background-color: rgb(207, 167, 210); }
+div.header { background-color: black; }
+
+div.header h1 span#h1_first { color: rgb(205, 12, 186); }
+div.header h1 span#h1_second { color: white; }
+
+/* generic button coloring */
+
+div.button {
+    background-color: #4f4f4f;
+    color: white;
+    border-color: black;
+    text-shadow: 1px 1px 2px black;
+}
+div.disabled {  
+    color: gray;
+}
+
+/* page: Hraci */
+
+div.napoveda {
+  background-color: rgb(236, 220, 239); color: black;
+}
+
+div.input input.hraci_jmena { 
+    border-color: orange;
+}
+
+/* page: Predavka */
+
+div#predavka div.panel {
+    background-color: rgb(208, 204, 217); color: black;
+}
+div#hrac_predavka {
+    background-color: rgb(205, 12, 186); 
+    color: black;
+    border-color: gray;
+}
+
+/* page: Vitez */
+
+div#vitez div.panel {
+    background-color: rgb(238, 232, 237); color: #7f2f2f;
+}
+div#hrac_vitez {
+    background-color: rgb(205, 12, 186);
+    color: white;
+    border-color: gray;
+}
+span#title_vitez {
+    color: rgb(205, 12, 186);
+}
+
+/* page: Stolek */
+
+div.podkartou {
+    background-color: rgb(6, 255, 6); 
+    color: rgb(6, 255, 6);
+    border-color: white;
+}
+
+div.title {
+  background-color: rgb(138, 68, 153);
+  color: rgb(227, 227, 234);  
+}
+div.hrac_na_tahu {
+  background-color: rgb(236, 220, 239);
+  color: black;
+}
+div.hrac_historie {
+  background-color: rgb(236, 220, 239);
+  color: black;
+}
+
+/* page: Stolek - technical border needs to have the same color as body */
+div.mazaci { border-color: rgb(207, 167, 210); }
+div.dalsibarva { border-color: rgb(207, 167, 210); }
+

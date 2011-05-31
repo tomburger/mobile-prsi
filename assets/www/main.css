@@ -1,40 +1,49 @@
-body { height: 100%; background-color: rgb(207, 167, 210); margin: 0px; padding: 0px; }
-div.header { padding: 5px; text-align: left; background-color: black; }
+body { 
+    height: 100%; margin: 0px; padding: 0px; 
+}
+
+div.header { 
+    padding: 5px; text-align: left; 
+}
 div.header h1 { margin: 0px; font: bold 1em Arial, sans-serif; }
-div.header h1 span#h1_first { color: rgb(205, 12, 186); }
-div.header h1 span#h1_second { color: white; }
 
 div.view { margin: 0px; padding: 5px 0px; }
+
+div.napoveda {
+  font: bold 20px Arial, sans-serif; 
+  border-radius: 5px;
+  margin: 5px; 
+  padding: 5px;
+}
 div.input_row { 
     clear: both; height: 35px;
-    margin: 0px 0px 5px 0px; }
-div.input { padding: 0px; float: left; }
-input.hraci_jmena { 
+    margin: 0px 0px 5px 0px; 
+}
+div.input { 
+    padding: 0px; float: left;
+}
+div.input input.hraci_jmena { 
     padding: 5px; margin: 3px;
-    border: 1px solid orange; border-radius: 5px;}
+    border: 1px solid; border-radius: 5px;
+    font-size: 18px;
+}
 div.label { 
     padding: 10px 5px;
-    font: bold 14px Arial, sans-serif;
-    float: left; width: 100px;
+    font: bold 20px Arial, sans-serif;
+    float: left; width: 120px;
     text-align: right;
 }
 div.hidden { display: none; }
 div.button {
     clear: both;
-    padding: 5px;
+    padding: 15px 5px;
     margin: 5px;
-    border: 1px solid black;
+    border: 1px solid;
     border-radius: 5px;
-    background-color: #4f4f4f;
     font: 20px Arial, sans-serif;
     text-align: center;
-    text-shadow: 1px 1px 2px black;
     cursor: pointer;
-    color: white;
     font-weight: bold;
-}
-div.disabled {
-    color: gray;
 }
 div.panel {
     margin: 10px; padding: 10px; 
@@ -44,33 +53,29 @@ div.panel {
 
 div#predavka div.panel {
     padding: 30px 0px;
-    background-color: rgb(208, 204, 217); color: black;
 }
 
 div#hrac_predavka {
-    border: 1px solid gray;
+    border: 1px solid;
     box-shadow: 3px 3px 5px #333;
     border-radius: 5px;
-    background-color: rgb(205, 12, 186);
-    font: bold 40px Arial, sans-serif; color: black;
+    font: bold 40px Arial, sans-serif; 
     margin: 30px 10px 30px 10px; padding: 10px; 
 }
 
 
 div#vitez div.panel {
     padding: 30px 0px;
-    background-color: rgb(238, 232, 237); color: #7f2f2f;
 }
 div#hrac_vitez {
-    border: 1px solid gray;
+    border: 1px solid;
     box-shadow: 3px 3px 5px #333;
     border-radius: 5px;
-    background-color: rgb(205, 12, 186);
-    font: bold 40px Arial, sans-serif; color: white;
+    font: bold 40px Arial, sans-serif; 
     margin: 30px 10px 30px 10px; padding: 10px; 
 }
 span#title_vitez {
-    font: bold 40px Arial, sans-serif; color: rgb(205, 12, 186);
+    font: bold 40px Arial, sans-serif; 
 }
 
 div.panel div.button {
@@ -81,15 +86,15 @@ div.karta_box {
     width: 70px; 
     margin: 2px; 
 }
-div.mazaci { border: rgb(207, 167, 210) 1px solid; }
+div.mazaci { border: 1px solid; }
 div.klikaci {
     cursor: pointer;
 }
 div.maznuta {
   opacity: .3;
 }
-div.vyrazna {
-  border: white 1px solid;
+div.vyrazna { 
+  opacity: 1;
 }
 div.karta {
     width: 68px; height: 75px; 
@@ -135,33 +140,23 @@ div.podstavec {
 }
 div.podkartou {
     width: 68px;
-    background-color: rgb(6, 255, 6); color: rgb(6, 255, 6);
     box-shadow: 3px 3px 2px #777;
-    border: 1px solid white;
+    border: 1px solid;
     height: 5px; border-radius: 2px;
     font-size: 1px;
 }
 div.title {
   clear:both;
   margin: 5px; padding: 5px; 
-  background-color: rgb(138, 68, 153);
   border-radius: 5px;
-  font: bold 20px Arial, sans-serif; color: rgb(227, 227, 234);
+  font: bold 20px Arial, sans-serif; 
   text-align: center;
 }
 div.section { 
   overflow: hidden;
 }
-div.napoveda {
-  background-color: rgb(236, 220, 239);
-  font: bold 15px Arial, sans-serif; color: black;
-  border-radius: 5px;
-  margin: 5px; 
-  padding: 5px;
-}
 div.hrac_na_tahu {
-  background-color: rgb(236, 220, 239);
-  font: bold 20px Arial, sans-serif; color: black;
+  font: bold 20px Arial, sans-serif; 
   border-radius: 5px;
   margin: 5px; 
   padding: 5px;
@@ -171,7 +166,7 @@ div.dalsibarva {
     width: 70px; height: 68px;
     text-align: center;
     margin: 2px 2px 5px 2px;
-    border: rgb(207, 167, 210) 1px solid;
+    border: 1px solid;
 }
 div.dalsibarva img {
     border: black solid 1px;
@@ -182,28 +177,27 @@ div.hrac_historie {
   position: relative;
   height: 98px;
   border-radius: 5px;
-  background-color: rgb(236, 220, 239);
 }
 div#hrac-historie-none {
-  font: bold 20px Arial, sans-serif; color: black;
+  font: bold 20px Arial, sans-serif; 
   text-align: center;
   height: 30px;
   padding: 5px; 
 }
 div.hrac_jmeno {
-  font: bold 20px Arial, sans-serif; color: black;
+  font: bold 20px Arial, sans-serif; 
   padding: 5px; 
   float: left; width: 120px;
 }
 div.hrac_zprava {
-  font: bold 20px Arial, sans-serif; color: black;
+  font: bold 20px Arial, sans-serif; 
   padding: 5px; 
   float: left;
 }
 div.hrac_novabarva {
   position: absolute;
   left: 242px; top: 60px;
-  font: bold 20px Arial, sans-serif; color: black;
+  font: bold 20px Arial, sans-serif; 
   margin: 2px; 
   float: left;
 }

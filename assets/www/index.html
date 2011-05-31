@@ -3,11 +3,13 @@
     <head> 
     <title>Karetni hra Prsi</title> 
     <link rel="stylesheet" type="text/css" href="main.css">
+    <!--  link rel="stylesheet" type="text/css" href="colors.css" -->
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="lang.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+          loadColors();
           $('div#zacni_hru').click(clickZacniHru);
           $('div#jdi_na_tah').click(clickJdiNaTah);
           $('div#tah_hotovy').click(clickTahHotovy);
@@ -21,6 +23,15 @@
               $(this).text(t($(this).text()));
           });
       });
+      function loadColors() {
+          var link = $('<link>');
+          link.attr({
+              type: 'text/css',
+              rel: 'stylesheet',
+              href: 'colors.css'
+          });
+          $('head').append(link);
+      }
       function t(txt) {
         var text = texts[txt];
         if (!text) alert(txt);
