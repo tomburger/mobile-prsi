@@ -53,6 +53,11 @@ span#title_vitez {
 
 /* page: Stolek */
 
+div.podstavec {
+	background-color: rgb(149, 149, 189);
+	color: rgb(149, 149, 189);
+}
+
 div.podkartou {
     background-color: rgb(6, 255, 6); 
     color: rgb(6, 255, 6);

@@ -54,7 +54,7 @@ div#predavka div.panel {
 
 div#hrac_predavka {
     border: 1px solid;
-    box-shadow: 3px 3px 5px #333;
+    -webkit-box-shadow: 3px 3px 5px #333;
     border-radius: 5px;
     font: bold 40px Arial, sans-serif; 
     margin: 30px 10px 30px 10px; padding: 10px; 
@@ -66,7 +66,7 @@ div#vitez div.panel {
 }
 div#hrac_vitez {
     border: 1px solid;
-    box-shadow: 3px 3px 5px #333;
+    -webkit-box-shadow: 3px 3px 5px #333;
     border-radius: 5px;
     font: bold 40px Arial, sans-serif; 
     margin: 30px 10px 30px 10px; padding: 10px; 
@@ -103,7 +103,7 @@ div.karta {
     text-align: center;
     vertical-align: middle;
 }
-div.shadow { box-shadow: 3px 3px 2px #777; }
+div.shadow { -webkit-box-shadow: 3px 3px 2px #777; }
 div.srdce  {
   color: black;
   background: white url('srdce.png') no-repeat 2px 2px; 
@@ -137,7 +137,7 @@ div.podstavec {
 }
 div.podkartou {
     width: 68px;
-    box-shadow: 3px 3px 2px #777;
+    -webkit-box-shadow: 3px 3px 2px #777;
     border: 1px solid;
     height: 5px; border-radius: 2px;
     font-size: 1px;

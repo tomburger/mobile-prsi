@@ -3,7 +3,7 @@ var texts = {
   'player_on_move({1})': { en: 'Currently player {1} is on move', cz: 'Teď je na tahu hráč {1}' },
   'take_cards({1})': { en: 'Take {1}', cz: 'Lízni {1}' },
   'taken_cards:{1}': { en: 'Taken {1}', cz: 'Líznul {1}' },
-  'skipped_due_a': { en: 'Skipped the round due to A', cz: 'Dostal eso a vynechal' },
+  'skipped_due_a': { en: 'Skipped', cz: 'Vynechal' },
   'no_moves_yet': { en: 'No moves done yet', cz: 'Ještě nikdo nezahrál' },
   'decide_on_move_first': { en: 'Decide about move first', cz: 'Nejprv vyber jak budeš hrát' },
   '1_card': { en: '1 card', cz: '1 karta' },
