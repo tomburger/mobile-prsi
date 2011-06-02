@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Prší na mobil</string>
+    <string name="settings">Nastavení</string>
+    <string name="about">O aplikaci</string>
+    <string name="hello">Ahoj světe</string>
+    <string name="color_schema_title">Vyber barevné schéma</string>
+    <string name="color_schema_summary">Vyber si schéma barev použité v aplikaci</string>
+    <string name="language_title">Jazyk</string>
+    <string name="language_summary">Vyber si jazyk kterým bude aplikace komunikovat</string>
+    <string name="settings_back">Je potřeba restartovat aplikaci, aby se nastavení zohlednila</string>
+</resources>
