@@ -1,0 +1,22 @@
+Pravidla 
+
+Každý hráč dostane na začátku 4 karty. Karty drží tak aby je ostatní neviděli
+Jedna karta se položí na stůl barvou nahoru
+Hráči vyhazují karty na stůl
+Mohou vyhodit kartu stejné barvy nebo stejné hodnoty jako poslední vyhozená karta
+Pokud takovou kartu nemají, musí si jednu kartu líznout ze zbylých karet
+Vítěz je ten, kdo první vyhodí všechny karty
+
+Speciální karty
+
+Jestliže hráč vyhodí sedmičku, další hráč si musí líznout 2 karty. 
+Pokud má další hráč také sedmičku, může jí vyhodit. 
+Další hráč pak musí líznout 4 karty, atd.
+
+Jestliže hráč vyhodí eso (A), další hráč nehraje.
+Pokud má další hráč také eso, může ho vyhodit.
+Nehraje pak následující hráč.
+
+Jestliže má hráč královnu (Q), může jí vyhodit na libovolnou kartu.
+Po vyhození hráč volí libovolně barvu, kterou se musí řídit další hráč.
+  

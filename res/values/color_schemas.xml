@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="color_schema">
+        <item>pink</item>
+        <item>blue</item>
+        <item>noir</item>
+    </string-array>
+    <string-array name="color_schema_label">
+        <item>Girl\'s Schema</item>
+        <item>Boy\'s Schema</item>
+        <item>Schema Noir</item>
+    </string-array>
+    <string name="color_schema_default">blue</string>
+    <string name="color_schema_key">color_preference</string>
+</resources>

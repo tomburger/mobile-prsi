@@ -202,4 +202,15 @@ div.hrac_novabarva img {
   border: 1px solid black;
   border-radius: 2px;
 }
-
+div.about_title {
+  margin: 5px; padding: 5px; 
+  border-radius: 5px;
+  font: bold 20px Arial, sans-serif; 
+  text-align: center;
+}
+div.about_ref {
+  font: bold 20px Arial, sans-serif; 
+  border-radius: 5px;
+  margin: 5px; 
+  padding: 5px;
+}

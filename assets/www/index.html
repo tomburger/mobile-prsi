@@ -8,34 +8,41 @@
     <script type="text/javascript" charset="utf-8" src="lang.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+          parseQueryString();
           loadColors();
+          $('.translate').map(function() {
+              $(this).text(t($(this).text()));
+          });
           $('div#zacni_hru').click(clickZacniHru);
           $('div#pridej_hrace').click(clickPridejHrace);
           $('div#jdi_na_tah').click(clickJdiNaTah);
           $('div#tah_hotovy').click(clickTahHotovy);
           $('div#nova_hra').click(clickNovaHra);
           $('div.dalsibarva').click(clickDalsiBarva);
-          $('input.hraci_jmena').change(changeHraciJmena);
+          $('input.hraci_jmena').keypress(changeHraciJmena);
           $('div.view').css('display', 'none');
           $('div.panel').height(300);
           initHraci();
-          $('.translate').map(function() {
-              $(this).text(t($(this).text()));
-          });
       });
+      function parseQueryString() {
+          var qs = window.location.search.substring(1);
+          var parts = qs.split("&");
+          window.prsi_color_scheme = parts[0];
+          window.prsi_language = parts[1];
+      }
       function loadColors() {
           var link = $('<link>');
           link.attr({
               type: 'text/css',
               rel: 'stylesheet',
-              href: 'colors_blue.css'
+              href: 'colors_' + window.prsi_color_scheme + '.css'
           });
           $('head').append(link);
       }
       function t(txt) {
         var text = texts[txt];
         if (!text) alert(txt);
-        var formatted = text.cz;
+        var formatted = text[window.prsi_language];
         for(arg in arguments) {
           if (arg > 0) formatted = formatted.replace("{" + arg + "}", arguments[arg]);
         }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language">
+      <item>EN</item>
+      <item>CZ</item>
+    </string-array>
+    <string-array name="language_label">
+      <item>English</item>
+      <item>Čeština</item>
+    </string-array>
+    <string name="language_default">EN</string>
+    <string name="language_key">language_preference</string>
+</resources>

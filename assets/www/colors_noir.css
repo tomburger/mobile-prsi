@@ -1,0 +1,79 @@
+body { background-color: #aaa; }
+div.header { background-color: black; }
+
+div.header h1 span#h1_first { color: #ccc; }
+div.header h1 span#h1_second { color: white; }
+
+/* generic button coloring */
+
+div.button {
+    background-color: #444;
+    color: white;
+    border-color: black;
+    text-shadow: 1px 1px 2px black;
+}
+div.disabled {  
+    color: #777;
+}
+
+/* page: Hraci */
+
+div.napoveda {
+  background-color: #ccc; color: black;
+}
+
+div.input input.hraci_jmena { 
+    border-color: #777;
+}
+
+/* page: Predavka */
+
+div#predavka div.panel {
+    background-color: #ccc; color: black;
+}
+div#hrac_predavka {
+    background-color: #bbb; 
+    color: black;
+    border-color: gray;
+}
+
+/* page: Vitez */
+
+div#vitez div.panel {
+    background-color: #ccc; color: black;
+}
+div#hrac_vitez {
+    background-color: #555;
+    color: white;
+    border-color: #888;
+}
+span#title_vitez {
+    color: #fff;
+}
+
+/* page: Stolek */
+
+div.podkartou {
+    background-color: rgb(6, 255, 6); 
+    color: rgb(6, 255, 6);
+    border-color: white;
+}
+
+div.title {
+  background-color: #bbb;
+  color: black;  
+}
+div.hrac_na_tahu {
+  background-color: #ccc;
+  color: black;
+}
+div.hrac_historie {
+  background-color: #ccc;
+  color: black;
+}
+
+/* page: Stolek - technical border needs to have the same color as body */
+div.podstavec { background-color: #aaa; color: #aaa; }
+div.mazaci { border-color: #aaa; }
+div.dalsibarva { border-color: #aaa; }
+

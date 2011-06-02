@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference android:title="@string/color_schema_title" android:summary="@string/color_schema_summary" android:entryValues="@array/color_schema" android:entries="@array/color_schema_label" android:defaultValue="@string/color_schema_default" android:persistent="true" android:key="@string/color_schema_key"></ListPreference>
+    <ListPreference android:title="@string/language_title" android:summary="@string/language_summary" android:entryValues="@array/language" android:entries="@array/language_label" android:persistent="true" android:defaultValue="@string/language_default" android:key="@string/language_key"></ListPreference>
+</PreferenceScreen>
