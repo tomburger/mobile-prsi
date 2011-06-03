@@ -1,5 +1,3 @@
-Prsi na mobil - karetni hra (CZ)
-===
 MauMau mobile - card game (EN)
 ===
 
