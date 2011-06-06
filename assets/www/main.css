@@ -81,7 +81,8 @@ div.panel div.button {
 div.karta_box {
     float: left;
     width: 70px; 
-    margin: 2px; 
+    margin: 2px;
+    position: relative;
 }
 div.mazaci { border: 1px solid; }
 div.klikaci {
@@ -142,6 +143,18 @@ div.podkartou {
     height: 5px; border-radius: 2px;
     font-size: 1px;
 }
+div.karta_novabarva {
+  position: absolute;
+  left: 36px; top: 58px;
+  font: bold 20px Arial, sans-serif; 
+  margin: 2px; 
+  float: left;
+}
+div.karta_novabarva img {
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
 div.title {
   clear:both;
   margin: 5px; padding: 5px; 
@@ -171,7 +184,6 @@ div.dalsibarva img {
 }
 div.hrac_historie {
   clear: both; margin: 5px;
-  position: relative;
   height: 98px;
   border-radius: 5px;
 }
@@ -190,17 +202,6 @@ div.hrac_zprava {
   font: bold 20px Arial, sans-serif; 
   padding: 5px; 
   float: left;
-}
-div.hrac_novabarva {
-  position: absolute;
-  left: 242px; top: 60px;
-  font: bold 20px Arial, sans-serif; 
-  margin: 2px; 
-  float: left;
-}
-div.hrac_novabarva img {
-  border: 1px solid black;
-  border-radius: 2px;
 }
 div.about_title {
   margin: 5px; padding: 5px; 

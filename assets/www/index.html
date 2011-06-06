@@ -128,7 +128,7 @@
          hra.lizani = (hodnoty[hra.karty[hra.nastole[0]].hodnota] == '7') ? 2 : 0;
          hra.cekani = (hodnoty[hra.karty[hra.nastole[0]].hodnota] == 'A');
       };
-      function pridejKartu(el, kr_ix, btn, shadow) {
+      function pridejKartu(el, kr_ix, br_ix, btn, shadow) {
         if (typeof(kr_ix) == 'number') {
           var karta = hra.karty[kr_ix];
           var barva = barvy[karta.barva] 
@@ -154,7 +154,10 @@
         html += (btn > 0)
               ? '<div id="button-podkartou-'+kr_ix+'" class="podkartou">.</div>'
               : '<div class="podstavec">.</div>';
+        if (br_ix >= 0)
+          html += '<div class="karta_novabarva"><img src="' + barvy[br_ix] + '30.png"/></div>';
         html += '</div>';
+        
         el.append(html);
       }
       function vezmiKartu() {
@@ -241,16 +244,22 @@
          vruce.empty();
          for(var kr_ix in hra.hraci[0].vruce) {
            var karta = hra.hraci[0].vruce[kr_ix];
-           pridejKartu(vruce, karta, povolenaKarta(karta), true);
+           pridejKartu(vruce, karta, -1, povolenaKarta(karta), true);
          };
          
          var nastole = $('div#nastole');
          nastole.empty();
-         pridejKartu(nastole, hra.nastole[0], false, true);
-         pridejKartu(nastole, pocetKaretText(hra.nastole.length-1), false, true);
+         if (hodnoty[hra.karty[hra.nastole[0]].hodnota]=='Q') {
+           pridejKartu(nastole, hra.nastole[0], hra.dalsi_barva, false, true);
+         }
+         else {
+           pridejKartu(nastole, hra.nastole[0], -1, false, true);
+         };
+        
+         pridejKartu(nastole, pocetKaretText(hra.nastole.length-1), -1, false, true);
          
          var lizani = povoleneLizani(karta);
-         if (lizani > 0) pridejKartu(nastole, t('take_cards({1})', lizani), lizani, true);
+         if (lizani > 0) pridejKartu(nastole, t('take_cards({1})', lizani), -1, lizani, true);
          
          $('div.klikaci').click(vezmiKartu);
          
@@ -267,13 +276,14 @@
                historie.append('<div id="hrac-historie-'+hr_ix+'" class="hrac_historie"></div>');
                var hr_hist = $('div#hrac-historie-'+hr_ix);
                hr_hist.append('<div class="hrac_jmeno">' + hra.hraci[hr_ix].name + '</name>'); 
-               pridejKartu(hr_hist, pocetKaretText(hra.hraci[hr_ix].vruce.length), false, false);
+               pridejKartu(hr_hist, pocetKaretText(hra.hraci[hr_ix].vruce.length), -1, false, false);
                if (hra.hraci[hr_ix].tah.karta >= 0) {
-                 pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, false, false);
                  if (hodnoty[hra.karty[hra.hraci[hr_ix].tah.karta].hodnota]=='Q') {
-                   hr_hist.append(
-                        '<div class="hrac_novabarva"><img src="' + barvy[hra.hraci[hr_ix].tah.barva] + '30.png"/></div>');
+                   pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, hra.hraci[hr_ix].tah.barva, false, false);
                  }
+                 else {
+                   pridejKartu(hr_hist, hra.hraci[hr_ix].tah.karta, -1, false, false);
+                 };
                }
                else 
                if (hra.hraci[hr_ix].tah.lizal > 0) {

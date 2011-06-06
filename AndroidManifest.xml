@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="cz.burger.android.phonegap.mobileprsi"
-      android:versionName="1.0.1" android:versionCode="5">
+      android:versionName="1.1.0" android:versionCode="6">
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
