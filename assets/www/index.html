@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
     <head> 
-    <title>Karetní hra Prší</title> 
+    <title>KaretnÃ­ hra PrÅ¡Ã­</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="main.css">
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
@@ -91,12 +91,12 @@
       function pripravHru() {
       	 hra.init();
          $('input.hraci_jmena').map(function(index, el) {
-         		 if (el.value) {
-          		 	 hra.add_player({ 
-          		 	   name: el.value, 
-          		 	   vruce: [] 
-          		 	 });
-         		 };
+           if (el.value) {
+             hra.add_player({ 
+               name: el.value, 
+               vruce: [] 
+             });
+           };
          });
          hra.mix_cards();
          hra.give_cards();
@@ -269,8 +269,23 @@
         $('div#hrac_vitez').text(hra.actualPlayer().name);
         $('div#vitez').css('display', '');
       };
+      function resortPlayers() {
+        var hraci = hra.hraciForNextGame(); 
+        $('input.hraci_jmena').map(function(index, el) {
+          var name = hraci.shift();
+          if (name) {
+            el.value = name;
+            $(el).parents('div.input_row').removeClass('hidden');
+          }
+          else {
+            el.value = '';
+            $(el).parents('div.input_row').addClass('hidden');
+          };
+        });
+      }
       function clickNovaHra () {
         $('div#vitez').css('display', 'none');
+        resortPlayers();
         initHraci();
       };
       function clickTahHotovy() {

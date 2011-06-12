@@ -92,6 +92,14 @@ var hra = {
     };
     return povoleno;
   },
+  hraciForNextGame: function() {
+    var nextGame = [];
+    for(var hr_ix in this.hraci) {
+      nextGame.push(this.hraci[hr_ix].name);
+    };
+    nextGame.push(nextGame.shift()); // winner goes last
+    return nextGame;
+  },
   zapisHistorii: function(lizal, karta, barva) {
     this.hraci[0].tah = {'lizal': lizal, 'karta': karta, 'barva': barva};
     this.historie.unshift({'hrac': this.hraci[0].name, 'lizal': lizal, 'karta': karta, 'barva': barva});
