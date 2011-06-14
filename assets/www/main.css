@@ -23,12 +23,14 @@ div.label {
     font: bold 20px Arial, sans-serif;
 }
 div.input {
+  padding: 5px;
+  border: 1px solid; border-radius: 5px;
 }
 div.input input.hraci_jmena { 
-    padding: 5px; margin: 0px; 
-    width: 90%; 
-    border: 1px solid; border-radius: 5px;
-    font-size: 18px;
+  padding: 0px; margin: 0px; 
+  border: 0px;
+  width: 100%; 
+  font-size: 18px;
 }
 
 div.hidden { display: none; }

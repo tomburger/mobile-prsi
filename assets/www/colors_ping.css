@@ -22,8 +22,9 @@ div.napoveda {
   background-color: rgb(236, 220, 239); color: black;
 }
 
-div.input input.hraci_jmena { 
+div.input { 
     border-color: orange;
+    background-color: white;
 }
 
 /* page: Predavka */
