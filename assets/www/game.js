@@ -92,6 +92,11 @@ var hra = {
     };
     return povoleno;
   },
+  kazdyHrac: function(fn) {
+    for(var hr_ix in this.hraci) {
+      fn(hr_ix, this.hraci[hr_ix]);
+    };
+  },
   hraciForNextGame: function() {
     var nextGame = [];
     for(var hr_ix in this.hraci) {

@@ -1,4 +1,4 @@
-body { background-color: #aaa; }
+body, div.view { background-color: #aaa; }
 div.header { background-color: black; }
 
 div.header h1 span#h1_first { color: #ccc; }
