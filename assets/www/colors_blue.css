@@ -1,4 +1,5 @@
-body { background-color: rgb(149, 149, 189); }
+body, div.view { background-color: rgb(149, 149, 189); }
+
 div.header { background-color: black; }
 
 div.header h1 span#h1_first { color: rgb(205, 12, 186); }

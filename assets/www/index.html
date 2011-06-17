@@ -24,6 +24,7 @@
           $('input.hraci_jmena').keypress(changeHraciJmena);
           $('div.view').css('display', 'none');
           $('div.panel').height(300);
+          
           initHraci();
       });
       function parseQueryString() {
@@ -50,16 +51,32 @@
         }
         return formatted;        
       }
+      function nextView(current, next, action) {
+        action();
+        if (next != '') {
+          $('div.view').css('z-index', 0);
+          var view = $('div#' + next);
+          // view must cover the bottom part of the screen
+          var height = view.height();
+          if (height < screen.height) view.height(screen.height);
+          // bring view from left to the screen
+          view.css('left', screen.width)
+              .css('z-index', 1)
+              .css('display', '')
+              .animate({left: 0}, 500, function() {
+                if (current != '') $('div#' + current).css('display', 'none');
+              });
+        }
+      };
       
       function initHraci() {
-          $('div#hraci').css('display', '');
-          changeHraciJmena(null);
+        changeHraciJmena(null);
+        $('div#hraci').css('display', '');            
       }
       function enabledZacniHru() {
-      	  var vyplneniHraci = $('input.hraci_jmena').filter(
-      	  	  function(index) { return this.value; }
-      	  	  );
-      	  return (vyplneniHraci.length >= 2);
+      	  return $('input.hraci_jmena').filter(
+                   function(index) { return this.value; }
+                 ).length >= 2;
       }
       function clickPridejHrace() {
         $('div.input_row.hidden:first').map(function() {
@@ -75,18 +92,17 @@
             $('div#zacni_hru').addClass('disabled');
       };
       function clickZacniHru(event) {
-          if (!enabledZacniHru()) {
-            alert(t('at_least_2_players_needed'));
-          }
-          else {
-              $('div#hraci').css('display', 'none');
-              pripravHru();
-              displayPredavka();
-          };
+        if (!enabledZacniHru()) {
+          alert(t('at_least_2_players_needed'));
+          return;
+        };
+        nextView('hraci', 'predavka', function() {
+          pripravHru();
+          pripravPredavka();
+        });
       };
-      function displayPredavka() {
-          $('div#hrac_predavka').text(hra.actualPlayer().name);
-          $('div#predavka').css('display', '');
+      function pripravPredavka() {
+        $('div#hrac_predavka').text(hra.actualPlayer().name);
       };
       function pripravHru() {
       	 hra.init();
@@ -127,7 +143,7 @@
             .removeClass('vyrazna')
             .removeClass('maznuta');
           clearChoice();
-          $('div#section_dalsibarva').addClass('hidden');
+          $('div#section_dalsibarva').hide();
         }
         else {
           $('div.mazaci')
@@ -141,11 +157,11 @@
           if (choice >= 0 && hra.isColorCard(choice)) { 
             $('div#tah_hotovy').addClass('disabled');
             $('div.dalsibarva').removeClass('maznuta');
-            $('div#section_dalsibarva').removeClass('hidden');
+            $('div#section_dalsibarva').show();
           }
           else {
             $('div#tah_hotovy').removeClass('disabled');
-            $('div#section_dalsibarva').addClass('hidden');
+            $('div#section_dalsibarva').hide();
           }
         };
       };
@@ -194,9 +210,7 @@
                          'more_cards{1}')),
         karet);
       }
-      function displayStolek() {
-         $('div#predavka').css('display', 'none');
-         
+      function pripravStolek() {
          $('div#section_hrac').empty().append('<div class="hrac_na_tahu">' + t('player_on_move({1})', hra.actualPlayer().name) + '</div>');
          
          var vruce = $('div#vruce');
@@ -222,7 +236,7 @@
          
          $('div.klikaci').click(vezmiKartu);
          
-         $('div#section_dalsibarva').addClass('hidden');
+         $('div#section_dalsibarva').hide();
             
          var historie = $('div#historie');
          historie.empty();
@@ -259,15 +273,15 @@
          };
          
          clearChoice();
-         
-         $('div#stolek').css('display', '');
       }
       function clickJdiNaTah() {
-        displayStolek();
-       };
-      function displayVitez() {
+        nextView('predavka', 'stolek', pripravStolek);
+      }
+      function pripravVitez() {
         $('div#hrac_vitez').text(hra.actualPlayer().name);
-        $('div#vitez').css('display', '');
+      }
+      function displayVitez() {
+        nextView('stolek', 'vitez', pripravVitez);
       };
       function resortPlayers() {
         var hraci = hra.hraciForNextGame(); 
@@ -275,36 +289,33 @@
           var name = hraci.shift();
           if (name) {
             el.value = name;
-            $(el).parents('div.input_row').removeClass('hidden');
+            $(el).parents('div.input_row').show();
           }
           else {
             el.value = '';
-            $(el).parents('div.input_row').addClass('hidden');
+            $(el).parents('div.input_row').hide();
           };
         });
       }
-      function clickNovaHra () {
-        $('div#vitez').css('display', 'none');
-        resortPlayers();
-        initHraci();
-      };
+      function clickNovaHra() {
+        nextView('vitez', 'hraci', function() {
+          resortPlayers();
+          changeHraciJmena(null);
+        });
+      }
       function clickTahHotovy() {
         if (getChoice()=='' && !hra.cekani) {
           alert(t('decide_on_move_first'));
           return;
         };
-        $('div#stolek').css('display', 'none');
         hra.dalsiTah(getChoice(), getColor());
         if (hra.endOfGame()) {
           displayVitez();
         }
         else {
-          dalsiHrac();
-          displayPredavka();
+          hra.nextPlayer();
+          nextView('stolek', 'predavka', pripravPredavka);
         };
-      };
-      function dalsiHrac() {
-        hra.nextPlayer();
       };
     </script>
 </head> 
@@ -348,7 +359,7 @@
       <div class="title translate">title_cards_on_desk</div>
       <div id="nastole"></div>
     </div>
-    <div class="section hidden" id="section_dalsibarva">
+    <div class="section" id="section_dalsibarva">
       <div class="title translate">title_select_next_color</div>
       <div id="dalsibarva">
         <div data-barva="0" class="dalsibarva shadow"><img src="srdce68.png"></div>

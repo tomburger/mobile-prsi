@@ -7,7 +7,10 @@ div.header {
 }
 div.header h1 { margin: 0px; font: bold 1em Arial, sans-serif; }
 
-div.view { margin: 0px; padding: 5px 0px; }
+div.view {
+  position: absolute; width: 100%;
+  margin: 0px; padding: 5px 0px;
+}
 
 div.napoveda {
   font: bold 20px Arial, sans-serif; 
