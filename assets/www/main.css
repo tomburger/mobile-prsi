@@ -22,10 +22,11 @@ div.input_row {
 div.label { 
     font: bold 20px Arial, sans-serif;
 }
-div.input { 
+div.input {
 }
 div.input input.hraci_jmena { 
-    padding: 5px; margin: 0px; width: 90%; 
+    padding: 5px; margin: 0px; 
+    width: 90%; 
     border: 1px solid; border-radius: 5px;
     font-size: 18px;
 }
