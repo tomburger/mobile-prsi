@@ -99,10 +99,12 @@ var hra = {
   },
   hraciForNextGame: function() {
     var nextGame = [];
-    for(var hr_ix in this.hraci) {
-      nextGame.push(this.hraci[hr_ix].name);
+    if (this.hraci && this.hraci.length > 0) {
+      for(var hr_ix in this.hraci) {
+        nextGame.push(this.hraci[hr_ix].name);
+      };
+      nextGame.push(nextGame.shift()); // winner goes last
     };
-    nextGame.push(nextGame.shift()); // winner goes last
     return nextGame;
   },
   zapisHistorii: function(lizal, karta, barva) {
