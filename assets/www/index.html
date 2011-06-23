@@ -60,10 +60,11 @@
           var height = view.height();
           if (height < screen.height) view.height(screen.height);
           // bring view from left to the screen
+          $(window).scrollTop(0);  
           view.css('left', screen.width)
               .css('z-index', 1)
               .css('display', '')
-              .animate({left: 0}, 500, function() {
+              .animate({left: 0}, 280, function() {
                 if (current != '') $('div#' + current).css('display', 'none');
               });
         }
