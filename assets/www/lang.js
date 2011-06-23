@@ -22,7 +22,7 @@ var texts = {
   'title_cards_on_desk': { EN: 'Cards on desk', CZ: 'Karty co jsou na stole' },
   'title_select_next_color': { EN: 'Select the next color', CZ: 'Vyber další barvu' },
   'title_cards_in_hand': { EN: 'Cards in your hand', CZ: 'Karty co máš v ruce' },
-  'ready_next_button': { EN: 'Ready! Move on to next player', CZ: 'Hotovo, na tahu je další hráč' },
+  'ready_next_button': { EN: 'Move on to next player', CZ: 'Na tahu je další hráč' },
   'title_other_players': { EN: 'Other players', CZ: 'Ostatní hráči' },
   'next_player_is': { EN: 'Next player is', CZ: 'Další hráč je' },
   'when_ready_click_button': { EN: 'When ready, click on button', CZ: 'Až budeš připraven, ťukni na tlačítko' },
