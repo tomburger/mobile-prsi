@@ -17,6 +17,7 @@
           });
           $('div#zacni_hru').click(clickZacniHru);
           $('div#pridej_hrace').click(clickPridejHrace);
+          $('div#pridej_bot').click(clickPridejBot);
           $('div#jdi_na_tah').click(clickJdiNaTah);
           $('div#tah_hotovy').click(clickTahHotovy);
           $('div#nova_hra').click(clickNovaHra);
@@ -44,8 +45,7 @@
       }
       function t(txt) {
         var text = texts[txt];
-        if (!text) alert(txt);
-        var formatted = text[window.prsi_language];
+        var formatted = (!text) ? txt : text[window.prsi_language];
         for(arg in arguments) {
           if (arg > 0) formatted = formatted.replace("{" + arg + "}", arguments[arg]);
         }
@@ -82,8 +82,20 @@
         $('div.input_row.hidden:first').map(function() {
             $(this).removeClass('hidden');
         });
-        if ($('div.input_row.hidden').length == 0)
+        if ($('div.input_row.hidden').length == 0) {
           $('div#pridej_hrace').addClass('disabled');
+          $('div#pridej_bot').addClass('disabled');
+        };
+      }
+      function clickPridejBot() {
+        $('div.input_row.hidden:first').map(function() {
+        	$(this).
+            $(this).removeClass('hidden');
+        });
+        if ($('div.input_row.hidden').length == 0) {
+          $('div#pridej_hrace').addClass('disabled');
+          $('div#pridej_bot').addClass('disabled');
+        };
       }
       function changeHraciJmena(event) {
       	  if (enabledZacniHru()) 
@@ -360,6 +372,7 @@
     </div>
     <div id="zacni_hru" class="button translate">start_game_button</div>
     <div id="pridej_hrace" class="button translate">add_one_player</div>
+    <div id="pridej_bot" class="button translate">add_one_bot</div>
   </div>
   <div id="stolek" class="view">
     <input type="hidden" id="stolek_volba" value=""/>
