@@ -71,6 +71,9 @@ var hra = {
   hodnotaKarty: function(ix) {
     return hodnoty[this.karty[ix].hodnota];
   },
+  barvaKarty: function(ix) {
+    return barvy[this.karty[ix].barva];
+  },
   isColorCard: function(ix) {
     return this.hodnotaKarty(ix)=='Q';
   },
@@ -80,7 +83,7 @@ var hra = {
   endOfGame: function() {
     return this.actualPlayer().vruce.length==0;
   },
-  povoleneLizani: function(karta) {
+  povoleneLizani: function() {
     var nastole_hodnota = this.karty[this.nastole[0]].hodnota;
          
     var povoleno = 1;
@@ -101,7 +104,10 @@ var hra = {
     var nextGame = [];
     if (this.hraci && this.hraci.length > 0) {
       for(var hr_ix in this.hraci) {
-        nextGame.push(this.hraci[hr_ix].name);
+        nextGame.push({
+            name: this.hraci[hr_ix].name,
+            bot: this.hraci[hr_ix].bot
+        });
       };
       nextGame.push(nextGame.shift()); // winner goes last
     };

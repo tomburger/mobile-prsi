@@ -69,14 +69,14 @@ function addOneRow(el, ix, input) {
 }
 function addPlayerRow(el, ix, val) {
   addOneRow(el, ix, 
-    '<input type="text" class="hraci_jmena human" name="hrac-'+ix+'" id="name-hrace-'+ix+'" value="'+val+'">'
+    '<input type="text" class="human hraci_jmena" name="hrac-'+ix+'" id="name-hrace-'+ix+'" value="'+val+'">'
   );
   $('input#name-hrace-'+ix).keypress(changeHraciJmena);
 }
-function addBotRow(el, ix) {
+function addBotRow(el, ix, val) {
+  if (val === '') val = 'Droid #' + ix;
   addOneRow(el, ix, 
-      '<input type="hidden" class="hraci_jmena bot" name="hrac-'+ix+'" id="name-hrace-'+ix+'" value="bot-'+ix+'">'
-    + '<img src="bot.png">'
+      '<img src="bot.png"><input disabled="disabled" type="text" class="bot hraci_jmena" name="hrac-'+ix+'" id="name-hrace-'+ix+'" value="'+val+'">'
   );
 }
 function prepareHraciJmena() {
@@ -87,7 +87,13 @@ function prepareHraciJmena() {
   if (hraci.length > 0) {
     var hr_ix = 1;
     while(hraci.length > 0) {
-      addPlayerRow(rows, hr_ix, hraci.shift());
+      var hrac = hraci.shift();
+      if (hrac.bot) {
+        addBotRow(rows, hr_ix, hrac.name);
+      }
+      else {
+        addPlayerRow(rows, hr_ix, hrac.name);
+      };
       hr_ix++;
     }
   }
@@ -127,7 +133,7 @@ function clickPridejBot() {
   var ln = $('div.input_row').length;
   if (ln < 5) {
     ln++;
-    addBotRow($('#section_players'), ln);
+    addBotRow($('#section_players'), ln, '');
     changeHraciJmena(null);
     if (ln == 5) {
       $('div#pridej_hrace').addClass('disabled');
@@ -140,23 +146,94 @@ function changeHraciJmena(event) {
       $('div#zacni_hru').removeClass('disabled')
     else
       $('div#zacni_hru').addClass('disabled');
-};
+}
+function dalsiKolo(from) {
+  if (hra.actualPlayer().bot) {
+    if (from === 'bot_hraje') {
+      // two bots in a row need special treatment
+      pripravBotHraje();
+    }
+    else {
+      nextView(from, 'bot_hraje', pripravBotHraje);
+    }
+  }
+  else {
+    nextView(from, 'predavka', pripravPredavka);
+  }
+}
+function logKarta(prefix, karta) {
+  console.log(prefix 
+    + barvy[hra.karty[karta].barva]
+    + '-'
+    + hodnoty[hra.karty[karta].hodnota]);
+}
+function botTahne() {
+  var vruce = hra.actualPlayer().vruce;
+  var povolene = [];
+  for (vr_ix in vruce){
+    var karta = vruce[vr_ix];
+    if (hra.povolenaKarta(karta)) {
+      logKarta('X ', karta);
+      povolene.push(karta);
+    }
+    else {
+      logKarta('  ', karta);
+    };
+  }
+  var lizani = hra.povoleneLizani();
+  console.log('Lizani ' + lizani);
+  
+  // autoplayer logic here!!
+  if (povolene.length > 0) {
+    var tah = povolene.shift();
+    if (hra.isColorCard(tah)) {
+      hra.dalsiTah(tah.toString(), hra.karty[tah].barva);
+    }
+    else {
+      hra.dalsiTah(tah.toString(), '');
+    };
+    logKarta('>>', tah);
+  }
+  else 
+  if (lizani > 0) {
+    hra.dalsiTah(-lizani, '');
+    console.log('Liznul...')
+  }
+  else {
+    hra.dalsiTah('', '');
+    console.log('Vynechal...');
+  };
+  console.log('----------------------------------');
+  
+}
+function pripravBotHraje() {
+  $('div#bot_predavka').text(hra.actualPlayer().name);
+  window.setTimeout(function() {
+      botTahne();
+      if (hra.endOfGame()) {
+        nextView('bot_hraje', 'vitez', pripravVitez);
+      }
+      else {
+        hra.nextPlayer();
+        dalsiKolo('bot_hraje');
+      }
+    }, 1500); 
+}
 function clickZacniHru(event) {
   if (!enabledZacniHru()) {
     alert(t('at_least_2_players_needed'));
     return;
   };
-  nextView('hraci', 'predavka', function() {
-    pripravHru();
-    pripravPredavka();
-  });
+  pripravHru();
+  dalsiKolo('hraci');
 };
 function pripravHru() {
    hra.init();
    $('input.hraci_jmena').map(function(index, el) {
      if (el.value) {
        hra.add_player({ 
-         name: el.value, 
+         name: el.value,
+         bot: $(el).hasClass('bot'),
          vruce: [] 
        });
      };
@@ -292,7 +369,7 @@ function pripravStolek() {
   
    nastole.append(pridejTxtKartu(pocetKaretText(hra.nastole.length-1), 0));
    
-   var lizani = hra.povoleneLizani(karta);
+   var lizani = hra.povoleneLizani();
    if (lizani > 0) nastole.append(pridejTxtKartu(t('take_cards({1})', lizani), lizani));
    
    $('div.klikaci').click(vezmiKartu);
@@ -359,7 +436,7 @@ function clickTahHotovy() {
   }
   else {
     hra.nextPlayer();
-    nextView('stolek', 'predavka', pripravPredavka);
+    dalsiKolo('stolek');
   };
 };
 

@@ -29,11 +29,22 @@ div.input {
   padding: 5px;
   border: 1px solid; border-radius: 5px;
 }
-div.input input.hraci_jmena { 
+
+div.input input.bot  /* disabled input field with name of bot */
+{
+  background-color: white;
+  -webkit-text-fill-color: black;
+  padding-left: 10px;
+}
+input.human 
+{
+  width: 100%; 
+}
+
+div.input .hraci_jmena { 
   padding: 0px; margin: 0px; 
   border: 0px;
-  width: 100%; 
-  font-size: 18px;
+  font: 18px Arial, sans-serif;
 }
 
 div.button {
