@@ -25,6 +25,7 @@ var texts = {
   'title_cards_in_hand': { EN: 'Cards in your hand', CZ: 'Karty co máš v ruce' },
   'ready_next_button': { EN: 'Move on to next player', CZ: 'Na tahu je další hráč' },
   'title_other_players': { EN: 'Other players', CZ: 'Ostatní hráči' },
+  'bot_is_playing': { EN: 'Now the autoplayer', CZ: 'Teď hraje automat' },
   'next_player_is': { EN: 'Next player is', CZ: 'Další hráč je' },
   'when_ready_click_button': { EN: 'When ready, click on button', CZ: 'Až budeš připraven, ťukni na tlačítko' },
   'ready_for_game_button': { EN: 'Ready for game', CZ: 'Připraven další tah' },

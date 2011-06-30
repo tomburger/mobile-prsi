@@ -38,6 +38,17 @@ div#hrac_predavka {
     border-color: gray;
 }
 
+/* page: Bot hraje */
+
+div#bot_hraje div.panel {
+    background-color: #ccc; color: black;
+}
+div#bot_predavka {
+    background-color: #bbb; 
+    color: black;
+    border-color: gray;
+}
+
 /* page: Vitez */
 
 div#vitez div.panel {
