@@ -9,4 +9,5 @@
     <string name="language_title">Language</string>
     <string name="language_summary">Select language application is going to communicate</string>
     <string name="settings_back">You need to restart application to apply the settings</string>
+    <string name="rules">Rules</string>
 </resources>
