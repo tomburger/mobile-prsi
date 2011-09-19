@@ -52,6 +52,9 @@ public class Main extends DroidGap {
     	case R.id.settings:
     		startSettings();
     		return true;
+    	case R.id.rules:
+    		startRules();
+    		return true;
     	case R.id.about:
     		startAbout();
     		return true;
@@ -67,6 +70,11 @@ public class Main extends DroidGap {
     
     private void startSettings() {
     	Intent intent = new Intent(this, Settings.class);
+    	startActivity(intent);
+    }
+    
+    private void startRules() {
+    	Intent intent = new Intent(this, Rules.class);
     	startActivity(intent);
     }
     
