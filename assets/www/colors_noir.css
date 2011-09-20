@@ -89,3 +89,11 @@ div.podstavec { background-color: #aaa; color: #aaa; }
 div.mazaci { border-color: #aaa; }
 div.dalsibarva { border-color: #aaa; }
 
+div.about_title {
+  background-color: #bbb;
+  color: black;  
+}
+div.about_ref {
+  background-color: #ccc;
+  color: black;
+}
