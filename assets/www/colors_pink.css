@@ -88,3 +88,11 @@ div.hrac_historie {
 div.mazaci { border-color: rgb(207, 167, 210); }
 div.dalsibarva { border-color: rgb(207, 167, 210); }
 
+div.about_title {
+  background-color: rgb(138, 68, 153);
+  color: rgb(227, 227, 234);  
+}
+div.about_ref {
+  background-color: rgb(236, 220, 239);
+  color: black;
+}

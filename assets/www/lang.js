@@ -36,61 +36,15 @@ var texts = {
   'about_contact': { EN: 'Contact', CZ: 'Kontakt' },
   'facebook_homepage': { EN: 'Game has homepage on Facebook', CZ: 'Hra má stránku na Facebooku' },
   'twitter_contact': { EN: 'You can also contact author on Twitter', CZ: 'S autorem se také můžete spojit přes Twitter' },
+  'app_rating_text': { 
+	  EN: 'If application gets a better rating, it gets better traction too. '
+		+ 'Better traction means development and more features. '
+		+ 'So help to improve the app by getting good rating on Market.', 
+	  CZ: 'Aplikace, která má lepší hodnoceni, zaujme víc uživatelů. '
+		+ 'Víc uživatelů znamená další vývoj a další funkce. ' 
+		+ 'Pomozte zlepšit hodnocení aplikace a ohodnoťte jí na Marketu.'},
+  'app_rating_button': { EN: 'Go to Market and provide rating', CZ: 'Ohodnoť aplikaci na Marketu' },
   
-  'about_rules': { EN: 'Rules of game', CZ: 'Pravidla' },
-
-  'rules_1': {
-  EN: 'Each player gets 4 cards, he holds them so that no one can see them', 
-  CZ: 'Každý hráč obdrží na začátku 4 karty, které drží tak, aby je ostatní neviděli' },
-
-  'rules_2': {
-  EN: 'Next card is placed on desk showing the color',
-  CZ: 'Další karta z balíčku se položí na stůl barvou nahoru' },
-
-  'rules_3': {
-  EN: 'Player, ready to play, puts on desk one of the cards in his hand', 
-  CZ: 'Hráč, který je na řadě, vyhodí na stůl jednu z karet, které má v ruce' },
-
-  'rules_4': {
-  EN: 'Card must be either the same color, or the same value, as the last card put on the desk', 
-  CZ: 'Karta musí být buď stejné barvy, nebo stejné hodnoty, jako poslední vyhozená karta' },
-
-  'rules_5': {
-  EN: 'If player has no such a card, he must take one card from pack', 
-  CZ: 'Pokud hráč takovou kartu v ruce nemá, musí si líznout jednu kartu z balíčku' },
-
-  'rules_6': {
-  EN: 'Winner is who has no cards in his hand', 
-  CZ: 'Vítězí ten, komu v ruce nezbude žádná karta' },
-
-  'about_specials': { EN: 'Special cards', CZ: 'Speciální karty' },
-
-  'specials_1': {
-  EN: 'If player puts Seven, next player must take 2 cards from pack', 
-  CZ: 'Jestliže hráč vyhodí sedmičku, musí si další hráč líznout 2 karty' },
-   
-  'specials_2': {
-  EN: 'If next player has Seven in his hand, he can use it', 
-  CZ: 'Pokud následující hráč má v ruce sedmičku, může jí použít' },
-   
-  'specials_3': {
-  EN: 'Next in sequence must then take 4 cards from pack, if he has no Seven',  
-  CZ: 'Další v pořadí si potom musí líznout 4 karty, pokud též nemá a nepoužije sedmičku' },
-
-  'specials_4': {
-  EN: 'If player puts an Ace card, next player skips his turn', 
-  CZ: 'Jestliže hráč vyhodí eso (A), další hráč stojí' },
-
-  'specials_5': {
-  EN: 'If next player has also Ace card and uses it, further next player skips', 
-  CZ: 'Má-li následující hráč také eso a použije ho, stojí další hráč v pořadí' },
-
-  'specials_6': {
-  EN: 'If player has Queen, he can puts it on any arbitrary card', 
-  CZ: 'Jestliže má hráč královnu (Q), může jí položit na libovolnou kartu' },
-
-  'specials_7': {
-  EN: 'After puting it, player can choose color for next player to obey', 
-  CZ: 'Po vyhození hráč volí barvu, kterou se musí řídit následující hráč' }
-    
+  'rules_title': { EN: 'Pravidla', CZ: 'Pravidla' },
+  
 };
