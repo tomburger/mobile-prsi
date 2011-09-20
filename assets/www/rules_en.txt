@@ -1,0 +1,18 @@
+Each player gets 4 cards at the beginning, which holds so that others could not see them
+Another card from the deck is placed face up on the table
+A player who is on the line, throw on the table one of the cards in his hand
+The card must be either the same color or the same value as the last card thrown
+If a player has no such a card in hand, he must draw one card from the deck
+The winner is the one who is left with no card in his hand
+
+= Special cards
+
+If a player throws a card with 7, the next player must draw 2 cards
+If the next player has card with 7 in his hand, it can be used
+Next in order then must draw 4 cards, only if he has no card with 7 or if he does not use it
+
+If a player throws an Ace (A), another player is skipped
+If the next player has also an ace and also uses it, another player in order is skipped
+
+If a player has a queen (Q), it can be laid on any card
+After laying the card, player chooses a color, next player must follow

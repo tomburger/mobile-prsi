@@ -15,16 +15,7 @@
           $('.translate').map(function() {
               $(this).text(t($(this).text()));
           });
-          $('div#app_rating').click(function() {
-			window.plugins.webintent.startActivity(
-				{
-					action: WebIntent.ACTION_VIEW,
-					url: 'https://market.android.com/details?id=cz.burger.android.phonegap.mobileprsi'
-				},
-				function() {},
-				function() { alert('Failed to open Android Market'); }
-			)
-          });
+          loadRulesText();
       });
       function parseQueryString() {
           var qs = window.location.search.substring(1);
@@ -50,6 +41,10 @@
         }
         return formatted;        
       }
+      function loadRulesText() {
+        var filename = 'rules_' + window.prsi_language + '.txt';
+        $('div#rules_text').load(filename);
+      }
     </script>
 </head> 
 <body> 
@@ -61,7 +56,7 @@
   </div>
   <div id="about" class="view">
     <div class="about_title translate">rules_title</div>
-        
+    <div id="rules_text"></div>
   </div>
 </body>
 </html>

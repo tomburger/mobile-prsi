@@ -1,0 +1,20 @@
+Každý hráč obdrží na začátku 4 karty, které drží tak, aby je ostatní neviděli
+Další karta z balíčku se položí na stůl barvou nahoru
+Hráč, který je na řadě, vyhodí na stůl jednu z karet, které má v ruce
+Karta musí být buď stejné barvy, nebo stejné hodnoty, jako poslední vyhozená karta
+Pokud hráč takovou kartu v ruce nemá, musí si líznout jednu kartu z balíčku
+Vítězí ten, komu v ruce nezbude žádná karta
+
+= Speciální karty
+
+Jestliže hráč vyhodí sedmičku, musí si další hráč líznout 2 karty
+Pokud následující hráč má v ruce sedmičku, může jí použít
+Další v pořadí si potom musí líznout 4 karty, pokud též nemá a nepoužije sedmičku
+
+Jestliže hráč vyhodí eso (A), další hráč stojí
+Má-li následující hráč také eso a použije ho, stojí další hráč v pořadí
+
+Jestliže má hráč svrška neboli královnu (Q), může jí položit na libovolnou kartu
+Po vyhození hráč volí barvu, kterou se musí řídit následující hráč
+
+  

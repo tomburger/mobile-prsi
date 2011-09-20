@@ -45,6 +45,6 @@ var texts = {
 		+ 'Pomozte zlepšit hodnocení aplikace a ohodnoťte jí na Marketu.'},
   'app_rating_button': { EN: 'Go to Market and provide rating', CZ: 'Ohodnoť aplikaci na Marketu' },
   
-  'rules_title': { EN: 'Pravidla', CZ: 'Pravidla' },
+  'rules_title': { EN: 'Rules', CZ: 'Pravidla' },
   
 };
