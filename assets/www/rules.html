@@ -8,61 +8,12 @@
     <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="lang.js"></script>
     <script type="text/javascript" charset="utf-8" src="webintent.js"></script>
+    <script type="text/javascript" charset="utf-8" src="core.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-          parseQueryString();
-          loadColors();
-          $('.translate').map(function() {
-              $(this).text(t($(this).text()));
-          });
-          loadRulesText();
+          initCore();
+          loadText('rules', 'rules_text');
       });
-      function parseQueryString() {
-          var qs = window.location.search.substring(1);
-          var parts = qs.split("&");
-          window.prsi_color_scheme = parts[0];
-          window.prsi_language = parts[1];
-      }
-      function loadColors() {
-          var link = $('<link>');
-          link.attr({
-              type: 'text/css',
-              rel: 'stylesheet',
-              href: 'colors_' + window.prsi_color_scheme + '.css'
-          });
-          $('head').append(link);
-      }
-      function t(txt) {
-        var text = texts[txt];
-        if (!text) alert(txt);
-        var formatted = text[window.prsi_language];
-        for(arg in arguments) {
-          if (arg > 0) formatted = formatted.replace("{" + arg + "}", arguments[arg]);
-        }
-        return formatted;        
-      }
-      function loadRulesText() {
-        var filename = 'rules_' + window.prsi_language + '.txt';
-        $.get(filename.toLowerCase(), function(data) {
-            var lines = data.split('\r\n');
-            var txt = '';
-            for (ix in lines) {
-              var line = lines[ix];
-              if (/^=\s/.test(line)) { 
-                txt += line.replace(/^=\s+(.*)/, '<div class="about_title">$1</div>');
-                continue;
-              }
-              if (!/^$/.test(line)) {
-                txt += '<div class="about_ref">' + line + '</div>';
-              }
-            };
-            $('div#rules_text').html(txt);
-        }, 'text');
-      }
-      function textify(txt_in) {
-        var txt_out = 'AAAAA' + txt_in;
-        return txt_out;
-      }
     </script>
 </head> 
 <body> 

@@ -32,20 +32,5 @@ var texts = {
   'and_winner_is': { EN: 'WINNER', CZ: 'VÍTĚZ' },
   'celebrate_hint': { EN: 'Celebrate a bit and start another game', CZ: 'Trochu to oslavte, a šup na odvetu' },
   'new_game_button': { EN: 'New game', CZ: 'Nová hra' },
-  
-  'about_contact': { EN: 'Contact', CZ: 'Kontakt' },
-  'facebook_homepage': { EN: 'Game has homepage on Facebook', CZ: 'Hra má stránku na Facebooku' },
-  'twitter_contact': { EN: 'You can also contact author on Twitter', CZ: 'S autorem se také můžete spojit přes Twitter' },
-  'app_rating_text': { 
-	  EN: 'If application gets a better rating, it gets better traction too. '
-		+ 'Better traction means development and more features. '
-		+ 'So help to improve the app by getting good rating on Market.', 
-	  CZ: 'Aplikace, která má lepší hodnoceni, zaujme víc uživatelů. '
-		+ 'Víc uživatelů znamená další vývoj a další funkce. ' 
-		+ 'Pomozte zlepšit hodnocení aplikace a ohodnoťte jí na Marketu.'},
-  'app_rating_button': { EN: 'Go to Market and provide rating', CZ: 'Ohodnoť aplikaci na Marketu' },
-  'app_rating_thanks': { EN: 'Thank You!!', CZ: 'Děkujeme!!' },
-  
-  'rules_title': { EN: 'Rules', CZ: 'Pravidla' },
-  
+   
 };
