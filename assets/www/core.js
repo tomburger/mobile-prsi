@@ -57,9 +57,16 @@ function loadText(file_name, div_ID) {
         }
         if (!/^$/.test(line)) {
           if (/^\[.*\]$/.test(line)) {
+            if (/\|\#/.test(line)) {    // # specifies ID of button
+              line = line.replace(/^\[(.*)\|#(.*)\]$/, 
+                        '<div class="button" id="button_' + ix +'">$1</div>' + 
+                        '<script>$("div#button_' + ix + '").click($2);</script>');
+            }
+            else {
               line = line.replace(/^\[(.*)\|(.*)\]$/, 
                         '<div class="button" id="button_' + ix +'">$1</div>' + 
                         '<script>buttonIntent("button_' + ix + '", "$2");</script>');
+            }
           }
           if (div != '') div += '<br/>';
           div += line;

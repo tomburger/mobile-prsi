@@ -1,9 +1,5 @@
 $(document).ready(function() {
-    parseQueryString();
-    loadColors();
-    $('.translate').map(function() {
-        $(this).text(t($(this).text()));
-    });
+    initCore();
     $('div#zacni_hru').click(clickZacniHru);
     $('div#pridej_hrace').click(clickPridejHrace);
     $('div#pridej_bot').click(clickPridejBot);
@@ -12,35 +8,13 @@ $(document).ready(function() {
     $('div#nova_hra').click(clickNovaHra);
     $('div.dalsibarva').click(clickDalsiBarva);
     $('div#app_rating').click(clickGotoMarket);
-    $('div#from_support_to_game').click(clickSupport2Hra);
     $('div.view').css('display', 'none');
     $('div.panel').height(300);
     
+    loadText('support', 'support_text');
+    
     initHraci();
 });
-function parseQueryString() {
-    var qs = window.location.search.substring(1);
-    var parts = qs.split("&");
-    window.prsi_color_scheme = parts[0];
-    window.prsi_language = parts[1];
-}
-function loadColors() {
-    var link = $('<link>');
-    link.attr({
-        type: 'text/css',
-        rel: 'stylesheet',
-        href: 'colors_' + window.prsi_color_scheme + '.css'
-    });
-    $('head').append(link);
-}
-function t(txt) {
-  var text = texts[txt];
-  var formatted = (!text) ? txt : text[window.prsi_language];
-  for(arg in arguments) {
-    if (arg > 0) formatted = formatted.replace("{" + arg + "}", arguments[arg]);
-  }
-  return formatted;        
-}
 function clickGotoMarket() {
   window.plugins.webintent.startActivity(
     {
