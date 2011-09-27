@@ -44,6 +44,7 @@ var texts = {
 		+ 'Víc uživatelů znamená další vývoj a další funkce. ' 
 		+ 'Pomozte zlepšit hodnocení aplikace a ohodnoťte jí na Marketu.'},
   'app_rating_button': { EN: 'Go to Market and provide rating', CZ: 'Ohodnoť aplikaci na Marketu' },
+  'app_rating_thanks': { EN: 'Thank You!!', CZ: 'Děkujeme!!' },
   
   'rules_title': { EN: 'Rules', CZ: 'Pravidla' },
   

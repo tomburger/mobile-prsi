@@ -1,3 +1,5 @@
+= Rules
+
 Each player gets 4 cards at the beginning, which holds so that others could not see them
 Another card from the deck is placed face up on the table
 A player who is on the line, throw on the table one of the cards in his hand

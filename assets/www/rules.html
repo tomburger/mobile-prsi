@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
     <head> 
-    <title>Karetní hra Prší</title> 
+    <title>KaretnÃ­ hra PrÅ¡Ã­</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="main.css">
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
@@ -43,7 +43,25 @@
       }
       function loadRulesText() {
         var filename = 'rules_' + window.prsi_language + '.txt';
-        $('div#rules_text').load(filename);
+        $.get(filename.toLowerCase(), function(data) {
+            var lines = data.split('\r\n');
+            var txt = '';
+            for (ix in lines) {
+              var line = lines[ix];
+              if (/^=\s/.test(line)) { 
+                txt += line.replace(/^=\s+(.*)/, '<div class="about_title">$1</div>');
+                continue;
+              }
+              if (!/^$/.test(line)) {
+                txt += '<div class="about_ref">' + line + '</div>';
+              }
+            };
+            $('div#rules_text').html(txt);
+        }, 'text');
+      }
+      function textify(txt_in) {
+        var txt_out = 'AAAAA' + txt_in;
+        return txt_out;
       }
     </script>
 </head> 
@@ -55,7 +73,6 @@
     </h1>
   </div>
   <div id="about" class="view">
-    <div class="about_title translate">rules_title</div>
     <div id="rules_text"></div>
   </div>
 </body>

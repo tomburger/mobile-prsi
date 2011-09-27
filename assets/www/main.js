@@ -11,6 +11,8 @@ $(document).ready(function() {
     $('div#tah_hotovy').click(clickTahHotovy);
     $('div#nova_hra').click(clickNovaHra);
     $('div.dalsibarva').click(clickDalsiBarva);
+    $('div#app_rating').click(clickGotoMarket);
+    $('div#from_support_to_game').click(clickSupport2Hra);
     $('div.view').css('display', 'none');
     $('div.panel').height(300);
     
@@ -38,6 +40,16 @@ function t(txt) {
     if (arg > 0) formatted = formatted.replace("{" + arg + "}", arguments[arg]);
   }
   return formatted;        
+}
+function clickGotoMarket() {
+  window.plugins.webintent.startActivity(
+    {
+       action: WebIntent.ACTION_VIEW,
+       url: 'https://market.android.com/details?id=cz.burger.android.phonegap.mobileprsi'
+    }, 
+    function() {},
+    function() { alert('Failed to open Android Market'); }
+  )
 }
 function nextView(current, next, action) {
   action();
@@ -105,6 +117,7 @@ function prepareHraciJmena() {
 function initHraci() {
   prepareHraciJmena();
   changeHraciJmena(null);
+  window.pocitadlo = 0;
   $('div#hraci').css('display', '');            
 }
 function enabledZacniHru() {
@@ -420,7 +433,19 @@ function pripravVitez() {
   $('div#hrac_vitez').text(hra.actualPlayer().name);
 }
 function clickNovaHra() {
-  nextView('vitez', 'hraci', function() {
+  window.pocitadlo++;
+  if (window.pocitadlo === 2) {
+    nextView('vitez', 'support', function() {});
+  }
+  else {
+    nextView('vitez', 'hraci', function() {
+      prepareHraciJmena();
+      changeHraciJmena(null);
+    });
+  }
+}
+function clickSupport2Hra() {
+  nextView('support', 'hraci', function() {
     prepareHraciJmena();
     changeHraciJmena(null);
   });

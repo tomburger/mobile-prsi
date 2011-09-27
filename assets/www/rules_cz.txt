@@ -1,3 +1,5 @@
+= Pravidla
+
 Každý hráč obdrží na začátku 4 karty, které drží tak, aby je ostatní neviděli
 Další karta z balíčku se položí na stůl barvou nahoru
 Hráč, který je na řadě, vyhodí na stůl jednu z karet, které má v ruce

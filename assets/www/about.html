@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
     <head> 
-    <title>Karetní hra Prší</title> 
+    <title>KaretnÃ­ hra PrÅ¡Ã­</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="main.css">
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
@@ -16,14 +16,14 @@
               $(this).text(t($(this).text()));
           });
           $('div#app_rating').click(function() {
-			window.plugins.webintent.startActivity(
-				{
-					action: WebIntent.ACTION_VIEW,
-					url: 'https://market.android.com/details?id=cz.burger.android.phonegap.mobileprsi'
-				},
-				function() {},
-				function() { alert('Failed to open Android Market'); }
-			)
+            window.plugins.webintent.startActivity(
+              {
+                 action: WebIntent.ACTION_VIEW,
+                 url: 'https://market.android.com/details?id=cz.burger.android.phonegap.mobileprsi'
+              }, 
+              function() {},
+              function() { alert('Failed to open Android Market'); }
+            )
           });
       });
       function parseQueryString() {
