@@ -1,0 +1,20 @@
+TODO list
+-----------
+
+The things to do in upcoming releases of MauMau Mobile
+
+- player with hint from address book
+- animated "bot is playing"
+- bot icon on "add autoplayer" button
+- tournament playing
+- upgrade phonegap and jquery
+- try with android 1.6
+- better players-page without empty rows (i.e adding bot removes second player row)
+- more detailed analytics
+- pictograms (on rules and about pages)
+- no handover page with single player and bot
+- no colorpick if queen is my last card
+- landscape arrangement for tablets
+- deploy into Chrome Web Store
+- english Facebook page in english About activity
+- new languages: slovak, german, french
