@@ -9,5 +9,5 @@ Nebo můžete kontaktovat autora přes Twitter
 Aplikace, která má lepší hodnoceni, zaujme víc uživatelů.
 Víc uživatelů znamená další vývoj a další funkce.
 Pomozte zlepšit hodnocení aplikace a ohodnoťte jí na Marketu.
-[Go to Market and provide rating|https://market.android.com/details?id=cz.burger.android.phonegap.mobileprsi]
+[Přejít na Adroid Market|https://market.android.com/details?id=cz.burger.android.phonegap.mobileprsi]
 

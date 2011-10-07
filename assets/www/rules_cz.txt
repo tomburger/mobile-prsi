@@ -18,5 +18,3 @@ Má-li následující hráč také eso a použije ho, stojí další hráč v po
 
 Jestliže má hráč svrška neboli královnu (Q), může jí položit na libovolnou kartu
 Po vyhození hráč volí barvu, kterou se musí řídit následující hráč
-
-  
