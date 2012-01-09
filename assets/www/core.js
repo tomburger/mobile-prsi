@@ -80,7 +80,7 @@ function loadText(file_name, div_ID) {
         }
         title = false;
         div = '';
-      };
+      }
       if (div != '') {
         txt = txt
             + '<div class="'
