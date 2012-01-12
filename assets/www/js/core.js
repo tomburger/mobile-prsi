@@ -1,8 +1,8 @@
 function initCore() {
     parseQueryString();
     loadColors();
-    $('.translate').map(function() {
-        $(this).text(t($(this).text()));
+    x$('.translate').each(function() {
+        x$(this).html(t(x$(this).html()));
     });
 }
 function parseQueryString() {
@@ -12,13 +12,9 @@ function parseQueryString() {
     window.prsi_language = parts[1];
 }
 function loadColors() {
-    var link = $('<link>');
-    link.attr({
-        type: 'text/css',
-        rel: 'stylesheet',
-        href: 'colors_' + window.prsi_color_scheme + '.css'
-    });
-    $('head').append(link);
+    x$('head').bottom('<link type="text/css" rel="stylesheet" '
+                    + 'href="css/colors_' + window.prsi_color_scheme + '.css" '
+                    + '/>');
 }
 function t(txt) {
   var text = texts[txt];
@@ -30,7 +26,7 @@ function t(txt) {
   return formatted;        
 }
 function buttonIntent(button_id, intent_url) {
-    $('div#' + button_id).click(function() {
+    x$('div#' + button_id).click(function() {
         window.plugins.webintent.startActivity(
           {
              action: WebIntent.ACTION_VIEW,
@@ -42,8 +38,9 @@ function buttonIntent(button_id, intent_url) {
     });
 }
 function loadText(file_name, div_ID) {
-  var filename = file_name + '_' + window.prsi_language + '.txt';
-  $.get(filename.toLowerCase(), function(data) {
+  var filename = 'txt/' + file_name + '_' + window.prsi_language + '.txt';
+  x$(document).xhr(filename.toLowerCase(), function() {
+      var data = this.responseText;
       var lines = data.split('\r\n');
       var txt = '';
       var div = '';
@@ -60,7 +57,7 @@ function loadText(file_name, div_ID) {
             if (/\|\#/.test(line)) {    // # specifies ID of button
               line = line.replace(/^\[(.*)\|#(.*)\]$/, 
                         '<div class="button" id="button_' + ix +'">$1</div>' + 
-                        '<script>$("div#button_' + ix + '").click($2);</script>');
+                        '<script>x$("div#button_' + ix + '").click($2);</script>');
             }
             else {
               line = line.replace(/^\[(.*)\|(.*)\]$/, 
@@ -87,7 +84,7 @@ function loadText(file_name, div_ID) {
             + (title ? 'about_title' : 'about_ref')
             + '">' + div + '</div>';
       }
-      $('div#' + div_ID).html(txt);
-  }, 'text');
+      x$('div#' + div_ID).html(txt);
+  });
 }
 

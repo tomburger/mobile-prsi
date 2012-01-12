@@ -1,47 +1,48 @@
 var hodnoty = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 var barvy = ['srdce', 'kary', 'zelena', 'zaludy'];
 var hra = {
-    init: function() {
+  init: function() {
     this.hraci = [];
     this.karty = [];
     this.nastole = [];
     this.lizani = 0;
     this.cekani = false;
     this.historie = [];
-    },
-    add_player: function(player) {
-	  this.hraci.push(player);
-    },
-    mix_cards: function() {
-     var kr_index = 0;
-     var karty = [];
-     for(var hd_ix in hodnoty) {
-       for(var br_ix in barvy) {
-         karty[kr_index++] = {
-           id: barvy[br_ix]+'-'+hodnoty[hd_ix],
-           barva: br_ix, hodnota: hd_ix
-         };
-       }
-     }
-     while (karty.length > 0) {
-       var rnd_ix = Math.floor(Math.random()*karty.length)
-       this.karty.push(karty.splice(rnd_ix, 1)[0]);
-     }
-    },
-    give_cards: function() {
-     var kr_trideni = 0;
-     for(var ix in [1,2,3,4]) {
-       for(var hr_ix in this.hraci) {
-         this.hraci[hr_ix].vruce.push(kr_trideni++);
-       }
-     }
-     while(kr_trideni<this.karty.length) {
-       this.nastole.push(kr_trideni++);
-     }
-     this.dalsi_barva = this.karty[this.nastole[0]].barva;
-     this.lizani = (this.hodnotaKarty(this.nastole[0]) == '7') ? 2 : 0;
-     this.cekani = (this.hodnotaKarty(this.nastole[0]) == 'A');
-    },
+  },
+  add_player: function(player) {
+    this.hraci.push(player);
+  },
+  mix_cards: function() {
+    var kr_index = 0;
+    var karty = [];
+    for(var hd_ix in hodnoty) {
+      for(var br_ix in barvy) {
+        karty[kr_index++] = {
+          id: barvy[br_ix]+'-'+hodnoty[hd_ix],
+          barva: br_ix, 
+          hodnota: hd_ix
+        };
+      }
+    }
+    while (karty.length > 0) {
+      var rnd_ix = Math.floor(Math.random()*karty.length)
+      this.karty.push(karty.splice(rnd_ix, 1)[0]);
+    }
+  },
+  give_cards: function() {
+    var kr_trideni = 0;
+    for(var ix in [1,2,3,4]) {
+      for(var hr_ix in this.hraci) {
+        this.hraci[hr_ix].vruce.push(kr_trideni++);
+      }
+    }
+    while(kr_trideni<this.karty.length) {
+      this.nastole.push(kr_trideni++);
+    }
+    this.dalsi_barva = this.karty[this.nastole[0]].barva;
+    this.lizani = (this.hodnotaKarty(this.nastole[0]) == '7') ? 2 : 0;
+    this.cekani = (this.hodnotaKarty(this.nastole[0]) == 'A');
+  },
   povolenaKarta: function(karta) {
     var karta_barva = this.karty[karta].barva;
     var nastole_barva = this.dalsi_barva;
@@ -58,9 +59,9 @@ var hra = {
     }
     else {
       povoleno = ( this.isColorCard(karta)     // svrsek muze vzdycky
-                || karta_barva == nastole_barva
-                || karta_hodnota == nastole_hodnota
-      );
+        || karta_barva == nastole_barva
+        || karta_hodnota == nastole_hodnota
+        );
     };
     return (povoleno? 1 : 0);
   },
@@ -104,8 +105,8 @@ var hra = {
     if (this.hraci && this.hraci.length > 0) {
       for(var hr_ix in this.hraci) {
         nextGame.push({
-            name: this.hraci[hr_ix].name,
-            bot: this.hraci[hr_ix].bot
+          name: this.hraci[hr_ix].name,
+          bot: this.hraci[hr_ix].bot
         });
       };
       nextGame.push(nextGame.shift()); // winner goes last
@@ -113,8 +114,17 @@ var hra = {
     return nextGame;
   },
   zapisHistorii: function(lizal, karta, barva) {
-    this.hraci[0].tah = {'lizal': lizal, 'karta': karta, 'barva': barva};
-    this.historie.unshift({'hrac': this.hraci[0].name, 'lizal': lizal, 'karta': karta, 'barva': barva});
+    this.hraci[0].tah = {
+      'lizal': lizal, 
+      'karta': karta, 
+      'barva': barva
+    };
+    this.historie.unshift({
+      'hrac': this.hraci[0].name, 
+      'lizal': lizal, 
+      'karta': karta, 
+      'barva': barva
+    });
   },
   dalsiTah: function(volba, barva) {
     if (volba=='') {
